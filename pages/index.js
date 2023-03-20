@@ -1,7 +1,5 @@
-import Head from 'next/head'
-import Image from 'next/image'
-import styled from 'styled-components'
 import Router from 'next/router'
+import styled from 'styled-components'
 
 const ASSET_DOMAIN = 'https://ph-1080.cgbuen.com'
 const createOptimizedSrc = x => x
@@ -32,8 +30,8 @@ export default function Home() {
         </HeroTextContainer>
       </HeroContainer>
       <Items>
-        {items.map(item => (
-          <Item>
+        {items.map((item, i) => (
+          <Item key={i}>
             <ItemLink className={item.name.toLowerCase()} onClick={goTo(item.href)}></ItemLink>
             <ItemText>{item.name}</ItemText>
           </Item>
