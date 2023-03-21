@@ -15,7 +15,18 @@ export const theme = createTheme({
       styleOverrides: {
         colorPrimary: {
           background: 'transparent',
-        }
+        },
+      },
+    },
+    MuiDialog: {
+      styleOverrides: {
+        root: {
+          zIndex: 1310,
+        },
+        paper: {
+          background: '#151515',
+          color: 'white',
+        },
       },
     },
   },

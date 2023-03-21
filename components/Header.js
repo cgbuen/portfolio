@@ -26,7 +26,7 @@ export default function Header() {
     >
       <AppBarInner>
         <AppBarInner2>
-          <HeaderLogoWrapper>
+          <HeaderLogoWrapper onClick={goTo('/')}>
             <HeaderLogo>cgbuen</HeaderLogo>
           </HeaderLogoWrapper>
           <Hidden smDown implementation="css">
@@ -44,7 +44,7 @@ export default function Header() {
             </NavTabs>
           </Hidden>
           <Hidden mdUp implementation="css">
-            <Menu>
+            <Menu open={false}>
               {
                 items.map((item, i) => (
                   <MenuItem
@@ -94,9 +94,10 @@ const AppBarInner2 = styled.div`
   color: white;
 `
 const HeaderLogoWrapper = styled.div`
+  cursor: pointer;
+  justify-content: left;
   margin-left: 0;
   margin-right: 10px;
-  justify-content: left;
 `
 const HeaderLogo = styled.div`
   color: white;

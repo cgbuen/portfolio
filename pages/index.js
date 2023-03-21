@@ -1,8 +1,8 @@
 import Router from 'next/router'
 import styled from 'styled-components'
+import { createOptimizedSrc } from 'helpers/imageService'
 
 const ASSET_DOMAIN = 'https://ph-1080.cgbuen.com'
-const createOptimizedSrc = x => x
 
 export default function Home() {
   const goTo = link => {
@@ -108,12 +108,14 @@ const HeroLink = styled.div`
 `
 
 const Items = styled.div`
-    align-items: center;
-    display: flex;
-    margin: 0 -15px;
-    @media (max-width:568px): {
-      display: block;
-    }
+  align-items: center;
+  display: flex;
+  margin: 0 auto;
+  max-width: 960px;
+  padding: 0 15px;
+  @media (max-width:568px): {
+    display: block;
+  }
 `
 
 const Item = styled.div`

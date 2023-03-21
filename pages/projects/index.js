@@ -1,4 +1,4 @@
-import { useContext, useEffect } from 'react'
+import { useContext, useState, useEffect } from 'react'
 import Router from 'next/router'
 import Context from 'store/context'
 import styled from 'styled-components'
@@ -7,16 +7,16 @@ import Card from 'components/Card'
 import Dialog from '@mui/material/Dialog'
 import DialogContent from '@mui/material/DialogContent'
 import DialogTitle from '@mui/material/DialogTitle'
-
-const createOptimizedSrc = x => x
+import IconButton from '@mui/material/IconButton'
+import Close from '@mui/icons-material/Close'
+import { createOptimizedSrc } from 'helpers/imageService'
 
 export default function Projects() {
   useEffect(() => {
     getProjects()
   }, [])
 
-  const openDialog = x => {
-  }
+  const [modal, setModal] = useState({})
 
   const getProjects = async () => {
     const projectsResponse = await fetch(`/api/projects`)
@@ -35,14 +35,36 @@ export default function Projects() {
         {projects.map(x => (
           <Card
             key={x.id}
+            className={"clickable"}
             name={x.name}
-            src={createOptimizedSrc(x.src, { width: 570 })}
+            src={createOptimizedSrc(x.src, { quality: 80, width: 570 })}
             description={x.description}
-            onClick={() => openDialog(x)}
+            onClick={() => setModal(x)}
           />
         ))}
       </div>
+      <Dialog maxWidth="md" open={modal.name}>
+        <DialogTitle>
+          <Typography variant="h1" component="h6">{modal.name}</Typography>
+          <StyledIconButton onClick={() => setModal({})}>
+            <Close />
+          </StyledIconButton>
+        </DialogTitle>
+        <DialogContent>
+          <ModalImg alt={modal.name} src={createOptimizedSrc(modal.src, { quality: 90 })} />
+        </DialogContent>
+      </Dialog>
     </>
   )
 }
 
+const StyledIconButton = styled(IconButton)`
+  color: white;
+  position: absolute;
+  top: 0;
+  right: 0;
+`
+
+const ModalImg = styled.img`
+  width: 100%;
+`
