@@ -1,5 +1,4 @@
 import { useContext, useState, useEffect } from 'react'
-import Router from 'next/router'
 import Context from 'store/context'
 import styled from 'styled-components'
 import Typography from '@mui/material/Typography'

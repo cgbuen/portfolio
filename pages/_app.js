@@ -21,7 +21,6 @@ export default function App({ Component, pageProps }) {
 }
 
 const HomePageWrapper = styled.div``
-
 const PageWrapper = styled.div`
   margin: 0 auto;
   max-width: 960px;

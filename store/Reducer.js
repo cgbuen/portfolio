@@ -6,6 +6,12 @@ const Reducer = (state, action) => {
         projects: action.payload
       }
     }
+    case 'SET_PHOTOS': {
+      return {
+        ...state,
+        photos: action.payload
+      }
+    }
     default: {
       return state
     }

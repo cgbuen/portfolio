@@ -19,6 +19,8 @@
     "qs": "^6.11.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "styled-components": "^5.3.8"
+    "resize-observer-polyfill": "^1.5.1",
+    "styled-components": "^5.3.8",
+    "yet-another-react-lightbox": "^2.6.2"
   }
 }
