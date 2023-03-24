@@ -14,7 +14,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import { createOptimizedSrc } from 'helpers/imageService'
 
-export default function Builds() {
+export default function Keysets() {
   const [openKeyset, setOpenKeyset] = useState({})
   const [keysetDetailsOpen, setKeysetDetailsOpen] = useState(false)
 

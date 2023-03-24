@@ -19,7 +19,7 @@ import { createOptimizedSrc } from 'helpers/imageService'
 
 const ASSET_DOMAIN = 'https://ph-1080.cgbuen.com'
 
-export default function Commissions() {
+export default function Plates() {
   useEffect(() => {
     getPlates()
   }, [])
