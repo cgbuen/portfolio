@@ -24,7 +24,7 @@ export default function Collection() {
   }
 
   const { globalState, globalDispatch } = useContext(Context)
-  const { collection } = globalState
+  const { collection, social } = globalState
 
   const handleSectionChange = (e, v) => {
     setTab(v)
@@ -33,7 +33,7 @@ export default function Collection() {
   return (
     <CollectionContainer>
       <Typography variant="h1">Keyboard Collection</Typography>
-      <p>Below is my personal collection of computer keyboards (primarily in HHKB-inspired layouts) and accompanying keysets. I stream my build process to <LinkBlank to="https://twitch.tv/cgbuen">Twitch</LinkBlank>.</p>
+      <p>Below is my personal collection of computer keyboards (primarily in HHKB-inspired layouts) and accompanying keysets. I stream my build process to <LinkBlank to={social.twitch}>Twitch</LinkBlank>.</p>
       <Tabs
         classes={{
           root: 'collectionTabsRoot',

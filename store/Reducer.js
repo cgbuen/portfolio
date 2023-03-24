@@ -42,6 +42,12 @@ const Reducer = (state, action) => {
         keysetDesc: action.payload
       }
     }
+    case 'SET_SOCIAL': {
+      return {
+        ...state,
+        social: action.payload
+      }
+    }
     default: {
       return state
     }
