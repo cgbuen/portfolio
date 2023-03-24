@@ -9,7 +9,7 @@ export default class Card extends Component {
         <CardBody className={right ? 'right' : ''}>
           {!right && <img className={`cardImgFigure`} src={src} alt={name} />}
           <CardHeaderWrapper>
-            <CardTitle>{name}</CardTitle>
+            <CardTitle className={classes.cardTitle}>{name}</CardTitle>
             <CardDescription>{description}</CardDescription>
           </CardHeaderWrapper>
           {right && <img className={`cardImgFigure right`} src={src} alt={name} />}
