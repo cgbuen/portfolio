@@ -4,7 +4,7 @@ import classnames from 'classnames'
 
 export default class Card extends Component {
   render() {
-    const { classes, className, src, name, description, onClick, right } = this.props
+    const { classes={}, className, src, name, description, onClick, right } = this.props
     return (
       <CardWrapper className={className || ''} onClick={onClick}>
         <CardBody className={right ? 'right' : ''}>

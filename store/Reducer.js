@@ -66,6 +66,12 @@ const Reducer = (state, action) => {
         gearDescriptions: action.payload
       }
     }
+    case 'SET_COMMANDS': {
+      return {
+        ...state,
+        commands: action.payload
+      }
+    }
     case 'SET_SOCIAL': {
       return {
         ...state,

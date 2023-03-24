@@ -141,7 +141,7 @@ export default function Builds() {
         </DialogTitle>
         <DialogContent>
           <DialogImgWrapper>
-            <img alt={openKeyset.name} src={openKeyset && openKeyset.src && createOptimizedSrc(openKeyset.src, { quality: 90 })} width="1080" />
+            <ModalImg alt={openKeyset.name} src={openKeyset && openKeyset.src && createOptimizedSrc(openKeyset.src, { quality: 90 })} width="1080" />
             {
               keysetDetailsOpen && (
                 <DescriptionBox>
@@ -211,6 +211,10 @@ const Highlight = styled.span`
 `
 const DialogImgWrapper = styled.div`
   position: relative;
+`
+const ModalImg = styled.img`
+  display: block;
+  width: 100%;
 `
 const DescriptionBox = styled.div`
   background: rgba(64, 64, 64, 0.4);

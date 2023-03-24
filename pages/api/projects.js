@@ -7,6 +7,7 @@ export default async function handler(req, res) {
   const projectsResponseJson = await projectsResponse.json()
   const response = projectsResponseJson.map(project => {
     project.src = `${ASSET_DOMAIN}/projects/${project.src}`
+    return project
   })
   res.status(200).json(response)
 }

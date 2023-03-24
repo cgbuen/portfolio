@@ -10,6 +10,7 @@ const initialState = {
   plates: [],
   gear: [],
   gearDescriptions: [],
+  commands: [],
   social: {
     instagram: 'https://www.instagram.com/cgbuen/',
     email: 'chris@cgbuen.io',
