@@ -8,6 +8,8 @@ const initialState = {
   keysetDesc: true,
   links: [],
   plates: [],
+  gear: [],
+  gearDescriptions: [],
   social: {
     instagram: 'https://www.instagram.com/cgbuen/',
     email: 'chris@cgbuen.io',
