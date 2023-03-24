@@ -1,5 +1,6 @@
 import GlobalStateProvider from 'store/GlobalStateProvider'
 import Header from 'components/Header'
+import Footer from 'components/Footer'
 import styled from 'styled-components'
 import Theme from 'styles/Theme'
 import '@/styles/globals.css'
@@ -15,6 +16,7 @@ export default function App({ Component, pageProps }) {
         <Wrapper>
           <Component {...pageProps} />
         </Wrapper>
+        <Footer />
       </Theme>
     </GlobalStateProvider>
   )
