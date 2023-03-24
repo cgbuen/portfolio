@@ -1,0 +1,60 @@
+import React, { Component } from 'react'
+import styled from 'styled-components'
+import classnames from 'classnames'
+
+export default class GridSquare extends Component {
+  render() {
+    const { classes, className, src, name, description, onClick } = this.props
+    return (
+      <Card className={className} onClick={onClick}>
+        <CardBody>
+          <CardFigure>
+            <CardImg src={src} alt={name} width="250" />
+          </CardFigure>
+        </CardBody>
+        <CardTitle>{name}</CardTitle>
+        <CardDescription>{description}</CardDescription>
+      </Card>
+    )
+  }
+}
+const Card = styled.div`
+  background: rgba(128, 128, 128, .15);
+  box-shadow: 1px 1px 7px 0 rgba(32, 32, 32, .3);
+  margin: 0 10px 10px;
+  padding: 15px;
+  text-align: center;
+  transition: background .2s ease-in-out;
+  &:hover {
+    background: rgba(128, 128, 128, .35);
+  }
+  @media (max-width:630px) {
+    width: 100%;
+  }
+`
+const CardTitle = styled.div`
+  font-size: 18px;
+  font-weight: bold;
+`
+const CardBody = styled.div`
+  display: flex;
+  align-items: center;
+  @media (max-width:630px) {
+    display: block;
+  }
+`
+const CardFigure = styled.div`
+  margin-bottom: 5px;
+  position: relative;
+  width: 250px;
+  @media (max-width:630px) {
+    display: block;
+    margin: 0 auto 5px;
+  }
+`
+const CardImg = styled.img`
+  display: block;
+`
+const CardDescription = styled.div`
+  font-size: 16px;
+`

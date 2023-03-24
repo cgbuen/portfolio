@@ -6,8 +6,7 @@ import Card from 'components/Card'
 import Dialog from '@mui/material/Dialog'
 import DialogContent from '@mui/material/DialogContent'
 import DialogTitle from '@mui/material/DialogTitle'
-import IconButton from '@mui/material/IconButton'
-import Close from '@mui/icons-material/Close'
+import DialogCloseButton from 'components/DialogCloseButton'
 import { createOptimizedSrc } from 'helpers/imageService'
 
 export default function Projects() {
@@ -45,9 +44,7 @@ export default function Projects() {
       <Dialog maxWidth="md" open={modal.name}>
         <DialogTitle>
           <Typography variant="h1" component="h6">{modal.name}</Typography>
-          <StyledIconButton onClick={() => setModal({})}>
-            <Close />
-          </StyledIconButton>
+          <DialogCloseButton onClick={() => setModal({})} />
         </DialogTitle>
         <DialogContent>
           <ModalImg alt={modal.name} src={createOptimizedSrc(modal.src, { quality: 90 })} />
@@ -56,13 +53,6 @@ export default function Projects() {
     </>
   )
 }
-
-const StyledIconButton = styled(IconButton)`
-  color: white;
-  position: absolute;
-  top: 0;
-  right: 0;
-`
 
 const ModalImg = styled.img`
   width: 100%;

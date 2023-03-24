@@ -28,9 +28,6 @@ const CardWrapper = styled.div`
   &:hover {
     background: rgba(128, 128, 128, .35);
   }
-  &.clickable {
-    cursor: pointer;
-  }
 `
 
 const CardBody = styled.div`

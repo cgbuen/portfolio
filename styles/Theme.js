@@ -3,6 +3,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles'
 
 export const theme = createTheme({
   typography: {
+    color: 'white',
     fontFamily: 'ff-meta-web-pro',
     h1: {
       fontWeight: 700,
@@ -26,6 +27,20 @@ export const theme = createTheme({
         paper: {
           background: '#151515',
           color: 'white',
+        },
+      },
+    },
+    MuiTabs: {
+      styleOverrides: {
+        indicator: {
+          backgroundColor: '#69c',
+        },
+      },
+    },
+    MuiTableCell: {
+      styleOverrides: {
+        root: {
+          color: 'white'
         },
       },
     },

@@ -12,6 +12,36 @@ const Reducer = (state, action) => {
         photos: action.payload
       }
     }
+    case 'SET_BUILDS': {
+      return {
+        ...state,
+        builds: action.payload
+      }
+    }
+    case 'SET_BUILDFILTERSACTIVE': {
+      return {
+        ...state,
+        buildFiltersActive: action.payload
+      }
+    }
+    case 'SET_KEYSETS': {
+      return {
+        ...state,
+        keysets: action.payload
+      }
+    }
+    case 'SET_KEYSETSORT': {
+      return {
+        ...state,
+        keysetSort: action.payload
+      }
+    }
+    case 'SET_KEYSETDESC': {
+      return {
+        ...state,
+        keysetDesc: action.payload
+      }
+    }
     default: {
       return state
     }

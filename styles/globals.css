@@ -127,3 +127,10 @@ p {
   background: transparent !important;
   text-align: center;
 }
+
+.hide {
+  display: none;
+}
+.clickable {
+  cursor: pointer;
+}
