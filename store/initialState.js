@@ -6,6 +6,8 @@ const initialState = {
   keysets: [],
   keysetSort: 'purchase_date',
   keysetDesc: true,
+  links: [],
+  plates: [],
   social: {
     instagram: 'https://www.instagram.com/cgbuen/',
     email: 'chris@cgbuen.io',

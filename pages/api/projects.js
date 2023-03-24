@@ -8,5 +8,5 @@ export default async function handler(req, res) {
   const response = projectsResponseJson.map(project => {
     project.src = `${ASSET_DOMAIN}/projects/${project.src}`
   })
-  res.status(200).json(projectsResponseJson)
+  res.status(200).json(response)
 }

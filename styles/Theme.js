@@ -44,6 +44,20 @@ export const theme = createTheme({
         },
       },
     },
+    MuiAccordion: {
+      styleOverrides: {
+        root: {
+          background: 'rgba(128, 128, 128, .2)',
+          color: 'white',
+          '& .MuiSvgIcon-root': {
+            fill: 'white'
+          },
+          '&.Mui-expanded': {
+            margin: 0,
+          },
+        },
+      },
+    },
   },
 })
 

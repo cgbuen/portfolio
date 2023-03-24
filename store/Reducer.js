@@ -42,6 +42,18 @@ const Reducer = (state, action) => {
         keysetDesc: action.payload
       }
     }
+    case 'SET_LINKS': {
+      return {
+        ...state,
+        links: action.payload
+      }
+    }
+    case 'SET_PLATES': {
+      return {
+        ...state,
+        plates: action.payload
+      }
+    }
     case 'SET_SOCIAL': {
       return {
         ...state,

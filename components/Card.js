@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import styled from 'styled-components'
+import classnames from 'classnames'
 
 export default class Card extends Component {
   render() {
@@ -7,12 +8,12 @@ export default class Card extends Component {
     return (
       <CardWrapper className={className || ''} onClick={onClick}>
         <CardBody className={right ? 'right' : ''}>
-          {!right && <img className={`cardImgFigure`} src={src} alt={name} />}
+          {!right && <img className={classnames('cardImgFigure', classes.cardImg)} src={src} alt={name} />}
           <CardHeaderWrapper>
             <CardTitle className={classes.cardTitle}>{name}</CardTitle>
-            <CardDescription>{description}</CardDescription>
+            <CardDescription className={classes.cardDescription}>{description}</CardDescription>
           </CardHeaderWrapper>
-          {right && <img className={`cardImgFigure right`} src={src} alt={name} />}
+          {right && <img className={'cardImgFigure', 'right', classes.cardImg} src={src} alt={name} />}
         </CardBody>
       </CardWrapper>
     )
