@@ -1,5 +1,6 @@
 import Router from 'next/router'
 import styled from 'styled-components'
+import Social from 'components/Social'
 import { createOptimizedSrc } from 'helpers/imageService'
 
 const ASSET_DOMAIN = 'https://ph-1080.cgbuen.com'
@@ -27,7 +28,9 @@ export default function Home() {
             <HeroLink onClick={goTo('/photography')}>Concert Photography.</HeroLink>
             <HeroLink onClick={goTo('/collection')}>Keyboard Building.</HeroLink>
           </HeroSubTextContainer>
+          <Social className={"heroBox"} />
         </HeroTextContainer>
+        <Social className={"homeOutside"} />
       </HeroContainer>
       <Items>
         {items.map((item, i) => (
@@ -49,11 +52,11 @@ const HeroContainer = styled.div`
   background-size: cover;
   height: 1228px;
   position: relative;
-  @media (max-width:1920px): {
+  @media (max-width:1920px) {
     height: auto;
     padding: 32%;
   }
-  @media (max-width:1080px): {
+  @media (max-width:1080px) {
     height: 689px;
     padding: 0;
   }
