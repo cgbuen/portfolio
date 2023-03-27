@@ -1,3 +1,5 @@
+import React from 'react'
+import Head from 'next/head'
 import GlobalStateProvider from 'store/GlobalStateProvider'
 import Header from 'components/Header'
 import Footer from 'components/Footer'
@@ -6,11 +8,15 @@ import Theme from 'styles/Theme'
 import '@/styles/globals.css'
 
 export default function App({ Component, pageProps }) {
-  const Wrapper = Component.prototype.constructor.name === 'Home' ? HomePageWrapper : PageWrapper
+  const pageName = Component.prototype.constructor.name
+  const Wrapper = pageName === 'Home' ? HomePageWrapper : PageWrapper
   return (
     <GlobalStateProvider>
-      <link rel="stylesheet" href="https://use.typekit.net/kgo8rkq.css" />
-      <link rel="shortcut icon" href="/icons/favicon.ico?v=2021052000" />
+      <Head>
+        <title>{pageName} &mdash; cgbuen</title>
+        <link rel="stylesheet" href="https://use.typekit.net/kgo8rkq.css" />
+        <link rel="shortcut icon" href="/icons/favicon.ico?v=2021052000" />
+      </Head>
       <Theme>
         <Header />
         <Wrapper>
