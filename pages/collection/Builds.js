@@ -6,14 +6,26 @@ import Tabs from '@mui/material/Tabs'
 import Tab from '@mui/material/Tab'
 import Dialog from '@mui/material/Dialog'
 import DialogContent from '@mui/material/DialogContent'
-import DialogTitle from '@mui/material/DialogTitle'
-import DialogCloseButton from 'components/DialogCloseButton'
 import LinkBlank from 'components/LinkBlank'
 import GridSquare from './GridSquare'
 import CheckBoxSharpIcon from '@mui/icons-material/CheckBoxSharp'
 import InstagramIcon from '../../public/assets/instagram.svg'
 import BuildIcon from '@mui/icons-material/Build'
 import SoundIcon from '@mui/icons-material/VolumeUp'
+import {
+  DialogClose,
+  DialogTitle,
+  DialogInnerTitleWrapper,
+  DialogInnerTitle,
+  Expand,
+  Highlight,
+  DialogImgWrapper,
+  ModalImg,
+  DescriptionBox,
+  DescriptionColumnWrapper,
+  DescriptionColumn,
+  DescriptionDetail,
+} from 'components/DialogHelpers'
 import { createOptimizedSrc } from 'helpers/imageService'
 
 export default function Builds() {
@@ -266,25 +278,25 @@ export default function Builds() {
       <Dialog maxWidth="xl" open={!!openBuild.name}>
         <DialogTitle>
           {openBuild &&
-            <>
+            <DialogInnerTitleWrapper>
               <DialogInnerTitle>{openBuild.name}</DialogInnerTitle>
               <Expand onClick={handleBuildDetailsOpen(!buildDetailsOpen)}>
                 <Highlight>[</Highlight>
                   {buildDetailsOpen ? <>&ndash; hide</> : '+ show'} build details
                 <Highlight>]</Highlight>
               </Expand>
-            </>
+            </DialogInnerTitleWrapper>
           }
-          <DialogCloseButton onClick={() => closeDialog()} />
+          <DialogClose onClick={() => closeDialog()} />
         </DialogTitle>
         <DialogContent>
           <DialogImgWrapper>
             <ModalImg alt={openBuild.name} src={dialogImg && createOptimizedSrc(dialogImg, { quality: 90 })} width="1080" />
             {
               buildDetailsOpen && (
-                <DescriptionBox>
+                <DescriptionBoxWithBuilds>
                   {descriptionize(openBuild)}
-                </DescriptionBox>
+                </DescriptionBoxWithBuilds>
               )
             }
           </DialogImgWrapper>
@@ -375,41 +387,7 @@ const NoResults = styled.div`
   font-style: italic;
   margin: 10px;
 `
-const DialogInnerTitle = styled.span`
-  font-weight: bold;
-  vertical-align: middle;
-`
-const Expand = styled.span`
-  cursor: pointer;
-  font-size: 14px;
-  font-weight: bold;
-  margin-left: 10px;
-  user-select: none;
-  vertical-align: middle;
-`
-const Highlight = styled.span`
-  color: #69c;
-`
-const DialogImgWrapper = styled.div`
-  position: relative;
-`
-const ModalImg = styled.img`
-  display: block;
-  width: 100%;
-`
-const DescriptionBox = styled.div`
-  background: rgba(64, 64, 64, 0.4);
-  left: 15px;
-  padding: 10px;
-  position: absolute;
-  text-shadow: 1px 1px 1px rgba(64, 64, 64, 0.4);
-  top: 15px;
-  @media (max-width:925px) {
-    background: none;
-    max-width: none;
-    padding: 10px 0 0;
-    position: static;
-  }
+const DescriptionBoxWithBuilds = styled(DescriptionBox)`
   .buildTabsRoot {
     min-height: 0;
   }
@@ -424,24 +402,6 @@ const DescriptionBox = styled.div`
     min-width: 0;
     padding: 0;
     text-transform: none;
-  }
-`
-const DescriptionColumnWrapper = styled.div`
-  width: auto;
-  @media (max-width:925px) {
-    display: flex;
-  }
-  @media (max-width:630px) {
-    display: block;
-  }
-`
-const DescriptionColumn = styled.div`
-  width: auto;
-  @media (max-width:925px) {
-    width: 50%;
-  }
-  @media (max-width:630px) {
-    width: auto;
   }
 `
 const DescriptionLink = styled(LinkBlank)`
@@ -463,9 +423,6 @@ const DescriptionLink = styled(LinkBlank)`
       filter: none;
     }
   }
-`
-const DescriptionDetail = styled.div`
-  text-shadow: 1px 1px 1px rgba(64, 64, 64, 0.4);
 `
 const LinkContainerWrapper = styled.div`
   position: relative;

@@ -5,8 +5,14 @@ import Typography from '@mui/material/Typography'
 import Card from 'components/Card'
 import Dialog from '@mui/material/Dialog'
 import DialogContent from '@mui/material/DialogContent'
-import DialogTitle from '@mui/material/DialogTitle'
-import DialogCloseButton from 'components/DialogCloseButton'
+import {
+  DialogClose,
+  DialogTitle,
+  DialogInnerTitleWrapper,
+  DialogInnerTitle,
+  DialogImgWrapper,
+  ModalImg,
+} from 'components/DialogHelpers'
 import { createOptimizedSrc } from 'helpers/imageService'
 
 export default function Projects() {
@@ -43,17 +49,17 @@ export default function Projects() {
       </div>
       <Dialog maxWidth="md" open={modal.name}>
         <DialogTitle>
-          <Typography variant="h1" component="h6">{modal.name}</Typography>
-          <DialogCloseButton onClick={() => setModal({})} />
+          <DialogInnerTitleWrapper>
+            <DialogInnerTitle>{modal.name}</DialogInnerTitle>
+          </DialogInnerTitleWrapper>
+          <DialogClose onClick={() => setModal({})} />
         </DialogTitle>
         <DialogContent>
-          <ModalImg alt={modal.name} src={createOptimizedSrc(modal.src, { quality: 90 })} />
+          <DialogImgWrapper>
+            <ModalImg alt={modal.name} src={createOptimizedSrc(modal.src, { quality: 90 })} />
+          </DialogImgWrapper>
         </DialogContent>
       </Dialog>
     </>
   )
 }
-
-const ModalImg = styled.img`
-  width: 100%;
-`

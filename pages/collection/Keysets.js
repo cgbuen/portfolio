@@ -5,13 +5,26 @@ import styled from 'styled-components'
 import Typography from '@mui/material/Typography'
 import Dialog from '@mui/material/Dialog'
 import DialogContent from '@mui/material/DialogContent'
-import DialogTitle from '@mui/material/DialogTitle'
-import DialogCloseButton from 'components/DialogCloseButton'
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
+import Paper from '@mui/material/Paper';
+import {
+  DialogClose,
+  DialogTitle,
+  DialogInnerTitleWrapper,
+  DialogInnerTitle,
+  Expand,
+  Highlight,
+  DialogImgWrapper,
+  ModalImg,
+  DescriptionBox,
+  DescriptionColumnWrapper,
+  DescriptionColumn,
+  DescriptionDetail,
+} from 'components/DialogHelpers'
 import { createOptimizedSrc } from 'helpers/imageService'
 
 export default function Keysets() {
@@ -98,7 +111,7 @@ export default function Keysets() {
   }
 
   return (
-    <>
+    <StyledPaper>
       <Table>
         <TableHead>
           <StyledTableHeaderRow>
@@ -126,18 +139,18 @@ export default function Keysets() {
         </TableBody>
       </Table>
       <Dialog maxWidth="xl" open={!!openKeyset.keyset}>
-        <DialogTitle disableTypography>
+        <DialogTitle>
           {openKeyset &&
-            <>
+            <DialogInnerTitleWrapper>
               <DialogInnerTitle>{openKeyset.keyset}</DialogInnerTitle>
               <Expand onClick={handleKeysetDetailsOpen(!keysetDetailsOpen)}>
                 <Highlight>[</Highlight>
                   {keysetDetailsOpen ? <>&ndash; hide</> : '+ show'} keyset details
                 <Highlight>]</Highlight>
               </Expand>
-            </>
+            </DialogInnerTitleWrapper>
           }
-          <DialogCloseButton onClick={() => closeDialog()} />
+          <DialogClose onClick={() => closeDialog()} />
         </DialogTitle>
         <DialogContent>
           <DialogImgWrapper>
@@ -152,10 +165,16 @@ export default function Keysets() {
           </DialogImgWrapper>
         </DialogContent>
       </Dialog>
-    </>
+    </StyledPaper>
   )
 }
 
+const StyledPaper = styled(Paper)`
+  background: #151515;
+  overflow-x: auto;
+  padding: 0 10px;
+  margin: 0 10px;
+`
 const StyledTableHeaderRow = styled(TableRow)`
   height: auto;
   th {
@@ -193,61 +212,4 @@ const KeysetImg = styled.img`
 `
 const DateDetail = styled.span`
   white-space: nowrap;
-`
-const DialogInnerTitle = styled.span`
-  font-weight: bold;
-  vertical-align: middle;
-`
-const Expand = styled.span`
-  cursor: pointer;
-  font-size: 14px;
-  font-weight: bold;
-  margin-left: 10px;
-  user-select: none;
-  vertical-align: middle;
-`
-const Highlight = styled.span`
-  color: #69c;
-`
-const DialogImgWrapper = styled.div`
-  position: relative;
-`
-const ModalImg = styled.img`
-  display: block;
-  width: 100%;
-`
-const DescriptionBox = styled.div`
-  background: rgba(64, 64, 64, 0.4);
-  left: 15px;
-  padding: 10px;
-  position: absolute;
-  text-shadow: 1px 1px 1px rgba(64, 64, 64, 0.4);
-  top: 15px;
-  @media (max-width:925px) {
-    background: none;
-    max-width: none;
-    padding: 10px 0 0;
-    position: static;
-  }
-`
-const DescriptionColumnWrapper = styled.div`
-  width: auto;
-  @media (max-width:925px) {
-    display: flex;
-  }
-  @media (max-width:630px) {
-    display: block;
-  }
-`
-const DescriptionColumn = styled.div`
-  width: auto;
-  @media (max-width:925px) {
-    width: 50%;
-  }
-  @media (max-width:630px) {
-    width: auto;
-  }
-`
-const DescriptionDetail = styled.div`
-  text-shadow: 1px 1px 1px rgba(64, 64, 64, 0.4);
 `
