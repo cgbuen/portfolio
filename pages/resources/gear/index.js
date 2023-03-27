@@ -20,9 +20,8 @@ import { createOptimizedSrc } from 'helpers/imageService'
 const ASSET_DOMAIN = 'https://ph-1080.cgbuen.com'
 
 export default function Gear() {
-  useEffect(() => {
-    getGear()
-  }, [])
+  const { globalState, globalDispatch } = useContext(Context)
+  const { gear, gearDescriptions } = globalState
 
   const getGear = async () => {
     const gearResponse = await fetch(`/api/gear`)
@@ -31,8 +30,9 @@ export default function Gear() {
     globalDispatch({ type: 'SET_GEARDESCRIPTIONS', payload: gearResponseJson.gearDescriptions })
   }
 
-  const { globalState, globalDispatch } = useContext(Context)
-  const { gear, gearDescriptions } = globalState
+  useEffect(() => {
+    getGear()
+  }, [getGear])
 
   const renderAccordion = (name, extras) => {
     return (

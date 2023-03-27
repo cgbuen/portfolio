@@ -10,13 +10,8 @@ import Keysets from './Keysets'
 import LinkBlank from 'components/LinkBlank'
 
 export default function Collection() {
-  useEffect(() => {
-    getCollection()
-    globalDispatch({ type: 'SET_BUILDFILTERSACTIVE', payload: { Built: true } })
-    globalDispatch({ type: 'SET_KEYSETSORT', payload: 'purchase_date' })
-    globalDispatch({ type: 'SET_KEYSETDESC', payload: false })
-  }, [])
-
+  const { globalState, globalDispatch } = useContext(Context)
+  const { collection, social } = globalState
   const [tab, setTab] = useState(0)
 
   const getCollection = async () => {
@@ -26,8 +21,12 @@ export default function Collection() {
     globalDispatch({ type: 'SET_KEYSETS', payload: collectionResponseJson.keysets })
   }
 
-  const { globalState, globalDispatch } = useContext(Context)
-  const { collection, social } = globalState
+  useEffect(() => {
+    getCollection()
+    globalDispatch({ type: 'SET_BUILDFILTERSACTIVE', payload: { Built: true } })
+    globalDispatch({ type: 'SET_KEYSETSORT', payload: 'purchase_date' })
+    globalDispatch({ type: 'SET_KEYSETDESC', payload: false })
+  }, [getCollection, globalDispatch])
 
   const handleSectionChange = (e, v) => {
     setTab(v)

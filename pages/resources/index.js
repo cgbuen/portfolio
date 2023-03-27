@@ -10,15 +10,8 @@ import { createOptimizedSrc } from 'helpers/imageService'
 const ASSET_DOMAIN = 'https://ph-1080.cgbuen.com'
 
 export default function Resources() {
-  useEffect(() => {
-    getLinks()
-  }, [])
-
-  const goTo = link => {
-    return () => {
-      Router.push(link)
-    }
-  }
+  const { globalState, globalDispatch } = useContext(Context)
+  const { links } = globalState
 
   const getLinks = async () => {
     const linksResponse = await fetch(`/api/links`)
@@ -26,8 +19,15 @@ export default function Resources() {
     globalDispatch({ type: 'SET_LINKS', payload: linksResponseJson })
   }
 
-  const { globalState, globalDispatch } = useContext(Context)
-  const { links } = globalState
+  useEffect(() => {
+    getLinks()
+  }, [getLinks])
+
+  const goTo = link => {
+    return () => {
+      Router.push(link)
+    }
+  }
 
   const descriptionize = (x, linkVisible) => {
     return (

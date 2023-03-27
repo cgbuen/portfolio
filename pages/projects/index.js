@@ -16,10 +16,8 @@ import {
 import { createOptimizedSrc } from 'helpers/imageService'
 
 export default function Projects() {
-  useEffect(() => {
-    getProjects()
-  }, [])
-
+  const { globalState, globalDispatch } = useContext(Context)
+  const { projects } = globalState
   const [modal, setModal] = useState({})
 
   const getProjects = async () => {
@@ -28,8 +26,9 @@ export default function Projects() {
     globalDispatch({ type: 'SET_PROJECTS', payload: projectsResponseJson })
   }
 
-  const { globalState, globalDispatch } = useContext(Context)
-  const { projects } = globalState
+  useEffect(() => {
+    getProjects()
+  }, [getProjects])
 
   return (
     <>

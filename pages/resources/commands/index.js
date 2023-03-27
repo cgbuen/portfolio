@@ -16,9 +16,8 @@ import { createOptimizedSrc } from 'helpers/imageService'
 const ASSET_DOMAIN = 'https://ph-1080.cgbuen.com'
 
 export default function Commands() {
-  useEffect(() => {
-    getCommands()
-  }, [])
+  const { globalState, globalDispatch } = useContext(Context)
+  const { commands } = globalState
 
   const getCommands = async () => {
     const commandsResponse = await fetch(`/api/commands`)
@@ -26,8 +25,9 @@ export default function Commands() {
     globalDispatch({ type: 'SET_COMMANDS', payload: commandsResponseJson })
   }
 
-  const { globalState, globalDispatch } = useContext(Context)
-  const { commands } = globalState
+  useEffect(() => {
+    getCommands()
+  }, [getCommands])
 
   const codifyCommands = (str) => {
     return (

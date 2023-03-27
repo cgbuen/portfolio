@@ -20,9 +20,8 @@ import { createOptimizedSrc } from 'helpers/imageService'
 const ASSET_DOMAIN = 'https://ph-1080.cgbuen.com'
 
 export default function Plates() {
-  useEffect(() => {
-    getPlates()
-  }, [])
+  const { globalState, globalDispatch } = useContext(Context)
+  const { plates } = globalState
 
   const getPlates = async () => {
     const platesResponse = await fetch(`/api/plates`)
@@ -30,8 +29,9 @@ export default function Plates() {
     globalDispatch({ type: 'SET_PLATES', payload: platesResponseJson })
   }
 
-  const { globalState, globalDispatch } = useContext(Context)
-  const { plates } = globalState
+  useEffect(() => {
+    getPlates()
+  }, [getPlates])
 
   const renderNotes = () => {
     return (

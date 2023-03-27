@@ -1,4 +1,4 @@
-import { useContext, useState, useEffect } from 'react'
+import { useContext, useState } from 'react'
 import Context from 'store/context'
 import styled from 'styled-components'
 import classnames from 'classnames'

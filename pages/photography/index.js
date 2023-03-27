@@ -11,12 +11,8 @@ import IconButton from '@mui/material/IconButton'
 import Typography from '@mui/material/Typography'
 
 export default function Photography() {
-  useEffect(() => {
-    getPhotos()
-    updateWindowDimensions()
-    window.addEventListener('resize', updateWindowDimensions)
-  }, [])
-
+  const { globalState, globalDispatch } = useContext(Context)
+  const { photos } = globalState
   const [isLandscape, setIsLandscape] = useState(false)
   const [isMobile, setIsMobile] = useState(false)
   const [index, setIndex] = useState(-1)
@@ -26,6 +22,12 @@ export default function Photography() {
     const photographyResponseJson = await photographyResponse.json()
     globalDispatch({ type: 'SET_PHOTOS', payload: photographyResponseJson })
   }
+
+  useEffect(() => {
+    getPhotos()
+    updateWindowDimensions()
+    window.addEventListener('resize', updateWindowDimensions)
+  }, [getPhotos])
 
   const updateWindowDimensions = () => {
     setIsLandscape(window.innerWidth > window.innerHeight)
@@ -65,9 +67,6 @@ export default function Photography() {
       )
     }
   }
-
-  const { globalState, globalDispatch } = useContext(Context)
-  const { photos } = globalState
 
   const handleClick = (event, { index }) => {
     setIndex(index)
