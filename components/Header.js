@@ -1,15 +1,30 @@
+import { useState } from 'react'
 import Router from 'next/router'
 import styled from 'styled-components'
 import AppBar from '@mui/material/AppBar'
-import Menu from '@mui/material/Menu'
+import useMediaQuery from '@mui/material/useMediaQuery'
+import Drawer from '@mui/material/Drawer'
 import MenuItem from '@mui/material/MenuItem'
-import Hidden from '@mui/material/Hidden'
+import MenuIcon from 'components/MenuIcon'
 
 export default function Header() {
   const goTo = link => {
     return () => {
       Router.push(link)
     }
+  }
+
+  const [menuOpen, setMenuOpen] = useState(false)
+
+  const handleMenuClick = val => {
+    return () => {
+      setMenuOpen(val)
+    }
+  }
+
+  const handleHeaderLogoClick = () => {
+    goTo('/')()
+    handleMenuClick(false)()
   }
 
   const items = [
@@ -26,10 +41,29 @@ export default function Header() {
     >
       <AppBarInner>
         <AppBarInner2>
-          <HeaderLogoWrapper onClick={goTo('/')}>
+          {useMediaQuery(theme => theme.breakpoints.down('md')) ? (
+            <div>
+              <MenuIconOuter onClick={handleMenuClick(!menuOpen)}>
+                <MenuIcon open={menuOpen} label={false} />
+              </MenuIconOuter>
+              <Drawer anchor={"left"} open={menuOpen} onClick={handleMenuClick(false)}>
+                {
+                  items.map((item, i) => (
+                    <MenuItem
+                      key={i}
+                      onClick={goTo(item.href)}
+                    >
+                      {item.name}
+                    </MenuItem>
+                  ))
+                }
+              </Drawer>
+            </div>
+          ) : null}
+          <HeaderLogoWrapper onClick={handleHeaderLogoClick}>
             <HeaderLogo>cgbuen</HeaderLogo>
           </HeaderLogoWrapper>
-          <Hidden smDown implementation="css">
+          {useMediaQuery(theme => theme.breakpoints.up('md')) ? (
             <NavTabs>
               {
                 items.map((item, i) => (
@@ -42,21 +76,7 @@ export default function Header() {
                 ))
               }
             </NavTabs>
-          </Hidden>
-          <Hidden mdUp implementation="css">
-            <Menu open={false}>
-              {
-                items.map((item, i) => (
-                  <MenuItem
-                    key={i}
-                    onClick={goTo(item.href)}
-                  >
-                    {item.name}
-                  </MenuItem>
-                ))
-              }
-            </Menu>
-          </Hidden>
+          ) : null}
         </AppBarInner2>
       </AppBarInner>
     </AppBarStyled>
@@ -92,12 +112,23 @@ const AppBarInner2 = styled.div`
   position: relative;
   align-items: center;
   color: white;
+  @media (min-width:900px) and (max-width: 950px) {
+    justify-content: center;
+  }
+`
+const MenuIconOuter = styled.div`
+  padding: 18px 12px 12px;
 `
 const HeaderLogoWrapper = styled.div`
   cursor: pointer;
   justify-content: left;
   margin-left: 0;
   margin-right: 10px;
+  @media (max-width:899px) {
+    left: 50%;
+    position: absolute;
+    transform: translateX(-50%);
+  }
 `
 const HeaderLogo = styled.div`
   color: white;
@@ -127,5 +158,8 @@ const NavTab = styled.div`
   transition: .5s background-color ease-in-out;
   &:hover {
     background-color: #69c;
+  }
+  @media (max-width:951px) {
+    min-width: 126px;
   }
 `

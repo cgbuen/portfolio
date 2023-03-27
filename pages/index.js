@@ -73,10 +73,10 @@ const HeroTextContainer = styled.div`
   position: absolute;
   top: 45%;
   transform: translateY(-60%);
-  @media (max-width:1080px): {
+  @media (max-width:1080px) {
     top: 58%;
   },
-  @media (max-width:768px): {
+  @media (max-width:768px) {
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);

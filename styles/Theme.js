@@ -19,6 +19,23 @@ export const theme = createTheme({
         },
       },
     },
+    MuiDrawer: {
+      styleOverrides: {
+        paper: {
+          background: '#151515',
+          color: 'white',
+          marginTop: 65,
+          width: 330,
+        },
+        root: {
+          '& .MuiMenuItem-root': {
+            fontSize: 18,
+            fontWeight: 'bold',
+            padding: 21,
+          },
+        },
+      },
+    },
     MuiDialog: {
       styleOverrides: {
         root: {

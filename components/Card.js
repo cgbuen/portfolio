@@ -35,7 +35,7 @@ const CardBody = styled.div`
   align-items: center;
   display: flex;
   @media (max-width:568px) {
-    display: 'block'
+    display: block;
   }
   &.right, .right {
     margin: 0 0 0 15px;
@@ -52,7 +52,7 @@ const CardBody = styled.div`
       display: block;
       margin: 0 0 15px 0;
       width: 100%;
-    },
+    }
   }
 `
 
