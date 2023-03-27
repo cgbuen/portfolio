@@ -12,6 +12,9 @@ import LinkBlank from 'components/LinkBlank'
 export default function Collection() {
   useEffect(() => {
     getCollection()
+    globalDispatch({ type: 'SET_BUILDFILTERSACTIVE', payload: { Built: true } })
+    globalDispatch({ type: 'SET_KEYSETSORT', payload: 'purchase_date' })
+    globalDispatch({ type: 'SET_KEYSETDESC', payload: false })
   }, [])
 
   const [tab, setTab] = useState(0)
