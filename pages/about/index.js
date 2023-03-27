@@ -18,7 +18,7 @@ export default function About() {
     <>
       <Typography variant="h1">About</Typography>
       <p>
-        Hi! I'm Chris, a software engineer, photographer, and content
+        Hi! I&rsquo;m Chris, a software engineer, photographer, and content
         creator based in San Francisco, California. This website serves as a
         portfolio of work completed both professionally and for leisure.
       </p>
@@ -36,11 +36,11 @@ export default function About() {
         (Past broadcasts can be found <LinkBlank to={social.youtubeV}>here</LinkBlank>.)
       </p>
       <p>
-        Send me a message for any inquiries. I'm best reached by Discord
+        Send me a message for any inquiries. I&rsquo;m best reached by Discord
         ({social.discordP}), <LinkBlank to={social.instagram}>Instagram</LinkBlank>{" "}
         DM, or <LinkBlank to={`mailto:${social.email}`}>email</LinkBlank>.
       </p>
-      <Image src={createOptimizedSrc(bioPhoto, { quality: 90 })} />
+      <Image alt={"cgbuen"} src={createOptimizedSrc(bioPhoto, { quality: 90 })} />
     </>
   )
 }

@@ -49,7 +49,7 @@ export default function Photography() {
   }
 
   const imageRenderer = () => {
-    return ({ index, photo, direction, top, left, key }) => {
+    return function renderer({ index, photo, direction, top, left, key }) {
       return (
         <Image
           key={key}
@@ -76,7 +76,7 @@ export default function Photography() {
   const Page = (
     <>
       <Typography variant="h1">Concert Photography</Typography>
-      <p>Here are a few live music events that I'm lucky to have shot. Click each image for more info.</p>
+      <p>Here are a few live music events that I&rsquo;m lucky to have shot. Click each image for more info.</p>
       <Gallery
         photos={photos.slice(0, 2)}
         direction={isMobile ? "column" : "row"}

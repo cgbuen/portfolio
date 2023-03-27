@@ -41,7 +41,7 @@ export default function Resources() {
   return (
     <ResourcesContainer>
       <Typography variant="h1">Resources</Typography>
-      <p>Below is a list of other resources that don't fall under any of the other categories on this site. Some are not mine, but are just added here for my own personal reference.</p>
+      <p>Below is a list of other resources that don&rsquo;t fall under any of the other categories on this site. Some are not mine, but are just added here for my own personal reference.</p>
       {links.map(x => {
         const LinkType = x.href.startsWith('https://') ? LinkBlank : FakeLink
         const link = (

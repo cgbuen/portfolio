@@ -39,11 +39,11 @@ export default function Plates() {
         <StyledAccordionSummary expandIcon={<ExpandMoreIcon />}>Notes</StyledAccordionSummary>
         <AccordionDetails>
           <ul>
-            <li>Each plate is for an HHKB-style layout, including: split right shift, split backspace, and blocked bottom corners (even for tray mount designs, so they'll be blocked solely by the plate themselves, not by any top case).</li>
+            <li>Each plate is for an HHKB-style layout, including: split right shift, split backspace, and blocked bottom corners (even for tray mount designs, so they&rsquo;ll be blocked solely by the plate themselves, not by any top case).</li>
             <li>Unless otherwise specified, plates will: have a 1u-1.5u-7u-1.5u-1u bottom row; use MX PCB-mount stabilizer cutouts; and exclude center- and spacebar-position screwholes (specifically for tray-mount plates).</li>
-            <li>For MX, you'll want to get these cut in materials that are around 1.5mm thick. For Alps, it's recommended to cut these in materials between 1.0mm to 1.2mm thick (but I have personally gone down as low as 0.8mm and retaining backing layers).</li>
-            <li>I use Ponoko to cut plates. They (as with any other service) won't necessarily provide every material in every thickness. These files are all in SVG format, which upload rather quickly to their application (compared to DXF).</li>
-            <li>Generally, I'll use softer materials for higher kerf values (e.g. 0.2mm), and harder materials for lower values (e.g. 0.15mm), but your mileage may vary. I have only included one kerf variation for each plate.</li>
+            <li>For MX, you&rsquo;ll want to get these cut in materials that are around 1.5mm thick. For Alps, it&rsquo;s recommended to cut these in materials between 1.0mm to 1.2mm thick (but I have personally gone down as low as 0.8mm and retaining backing layers).</li>
+            <li>I use Ponoko to cut plates. They (as with any other service) won&rsquo;t necessarily provide every material in every thickness. These files are all in SVG format, which upload rather quickly to their application (compared to DXF).</li>
+            <li>Generally, I&rsquo;ll use softer materials for higher kerf values (e.g. 0.2mm), and harder materials for lower values (e.g. 0.15mm), but your mileage may vary. I have only included one kerf variation for each plate.</li>
           </ul>
         </AccordionDetails>
       </Accordion>

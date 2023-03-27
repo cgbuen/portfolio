@@ -36,7 +36,7 @@ export default function Commissions() {
           src={createOptimizedSrc("https://ph-1080.cgbuen.com/resources/film.jpg", { quality: 80, width: 570 })}
           description={(
             <Text>
-              I'll develop and scan your photo film, ready for print or social media, starting at $3 per roll.{" "}
+              I&rsquo;ll develop and scan your photo film, ready for print or social media, starting at $3 per roll.{" "}
               For the fastest response, fill out <FakeLink>this form</FakeLink>.
             </Text>
           )}

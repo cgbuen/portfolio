@@ -34,7 +34,7 @@ export default function Projects() {
   return (
     <>
       <Typography variant="h1">Software & Design Projects</Typography>
-      <p>I work as a software engineer / architect for a living, solving fun problems on the web. These are the projects that I've worked on.</p>
+      <p>I work as a software engineer / architect for a living, solving fun problems on the web. These are the projects that I&rsquo;ve worked on.</p>
       <div>
         {projects.map(x => (
           <Card
