@@ -39,6 +39,9 @@ const Card = styled.div`
   }
   @media (max-width:630px) {
     display: inline-block;
+    &.hide {
+      display: none;
+    }
   }
 `
 const CardTitle = styled.div`
