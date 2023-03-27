@@ -13,7 +13,7 @@ export default function App({ Component, pageProps }) {
   return (
     <GlobalStateProvider>
       <Head>
-        <title>{pageName} &mdash; cgbuen</title>
+        <title>{`${pageName} — cgbuen`}</title>
         <link rel="stylesheet" href="https://use.typekit.net/kgo8rkq.css" />
         <link rel="shortcut icon" href="/icons/favicon.ico?v=2021052000" />
       </Head>
