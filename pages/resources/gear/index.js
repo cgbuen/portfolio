@@ -1,4 +1,4 @@
-import { useContext, useState, useEffect } from 'react'
+import { useContext, useEffect, useCallback } from 'react'
 import Router from 'next/router'
 import Context from 'store/context'
 import classnames from 'classnames'
@@ -23,12 +23,12 @@ export default function Gear() {
   const { globalState, globalDispatch } = useContext(Context)
   const { gear, gearDescriptions } = globalState
 
-  const getGear = async () => {
+  const getGear = useCallback(async () => {
     const gearResponse = await fetch(`/api/gear`)
     const gearResponseJson = await gearResponse.json()
     globalDispatch({ type: 'SET_GEAR', payload: gearResponseJson.gear })
     globalDispatch({ type: 'SET_GEARDESCRIPTIONS', payload: gearResponseJson.gearDescriptions })
-  }
+  }, [])
 
   useEffect(() => {
     getGear()

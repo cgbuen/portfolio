@@ -1,4 +1,4 @@
-import { useContext, useState, useEffect } from 'react'
+import { useContext, useState, useEffect, useCallback } from 'react'
 import Context from 'store/context'
 import styled from 'styled-components'
 import Typography from '@mui/material/Typography'
@@ -20,11 +20,11 @@ export default function Projects() {
   const { projects } = globalState
   const [modal, setModal] = useState({})
 
-  const getProjects = async () => {
+  const getProjects = useCallback(async () => {
     const projectsResponse = await fetch(`/api/projects`)
     const projectsResponseJson = await projectsResponse.json()
     globalDispatch({ type: 'SET_PROJECTS', payload: projectsResponseJson })
-  }
+  }, [])
 
   useEffect(() => {
     getProjects()

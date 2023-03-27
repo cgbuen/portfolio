@@ -1,4 +1,4 @@
-import { useContext, useState, useEffect } from 'react'
+import { useContext, useEffect, useCallback } from 'react'
 import Router from 'next/router'
 import Context from 'store/context'
 import styled from 'styled-components'
@@ -13,11 +13,11 @@ export default function Resources() {
   const { globalState, globalDispatch } = useContext(Context)
   const { links } = globalState
 
-  const getLinks = async () => {
+  const getLinks = useCallback(async () => {
     const linksResponse = await fetch(`/api/links`)
     const linksResponseJson = await linksResponse.json()
     globalDispatch({ type: 'SET_LINKS', payload: linksResponseJson })
-  }
+  }, [])
 
   useEffect(() => {
     getLinks()

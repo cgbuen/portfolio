@@ -1,4 +1,4 @@
-import { useContext, useState, useEffect } from 'react'
+import { useContext, useState, useEffect, useCallback } from 'react'
 import Context from 'store/context'
 import classnames from 'classnames'
 import styled from 'styled-components'
@@ -14,12 +14,12 @@ export default function Collection() {
   const { collection, social } = globalState
   const [tab, setTab] = useState(0)
 
-  const getCollection = async () => {
+  const getCollection = useCallback(async () => {
     const collectionResponse = await fetch(`/api/collection`)
     const collectionResponseJson = await collectionResponse.json()
     globalDispatch({ type: 'SET_BUILDS', payload: collectionResponseJson.builds })
     globalDispatch({ type: 'SET_KEYSETS', payload: collectionResponseJson.keysets })
-  }
+  }, [])
 
   useEffect(() => {
     getCollection()

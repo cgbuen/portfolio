@@ -1,4 +1,4 @@
-import { useContext, useState, useEffect } from 'react'
+import { useContext, useState, useEffect, useCallback } from 'react'
 import Context from 'store/context'
 import Lightbox from 'yet-another-react-lightbox'
 import Captions from 'yet-another-react-lightbox/plugins/captions'
@@ -17,11 +17,11 @@ export default function Photography() {
   const [isMobile, setIsMobile] = useState(false)
   const [index, setIndex] = useState(-1)
 
-  const getPhotos = async () => {
+  const getPhotos = useCallback(async () => {
     const photographyResponse = await fetch(`/api/photography`)
     const photographyResponseJson = await photographyResponse.json()
     globalDispatch({ type: 'SET_PHOTOS', payload: photographyResponseJson })
-  }
+  }, [])
 
   useEffect(() => {
     getPhotos()

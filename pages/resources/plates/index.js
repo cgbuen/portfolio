@@ -1,4 +1,4 @@
-import { useContext, useState, useEffect } from 'react'
+import { useContext, useEffect, useCallback } from 'react'
 import Router from 'next/router'
 import Context from 'store/context'
 import classnames from 'classnames'
@@ -23,11 +23,11 @@ export default function Plates() {
   const { globalState, globalDispatch } = useContext(Context)
   const { plates } = globalState
 
-  const getPlates = async () => {
+  const getPlates = useCallback(async () => {
     const platesResponse = await fetch(`/api/plates`)
     const platesResponseJson = await platesResponse.json()
     globalDispatch({ type: 'SET_PLATES', payload: platesResponseJson })
-  }
+  }, [])
 
   useEffect(() => {
     getPlates()

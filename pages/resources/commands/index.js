@@ -1,4 +1,4 @@
-import { useContext, useState, useEffect } from 'react'
+import { useContext, useEffect, useCallback } from 'react'
 import Router from 'next/router'
 import Context from 'store/context'
 import classnames from 'classnames'
@@ -19,11 +19,11 @@ export default function Commands() {
   const { globalState, globalDispatch } = useContext(Context)
   const { commands } = globalState
 
-  const getCommands = async () => {
+  const getCommands = useCallback(async () => {
     const commandsResponse = await fetch(`/api/commands`)
     const commandsResponseJson = await commandsResponse.json()
     globalDispatch({ type: 'SET_COMMANDS', payload: commandsResponseJson })
-  }
+  }, [])
 
   useEffect(() => {
     getCommands()
