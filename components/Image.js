@@ -6,6 +6,7 @@ import Typography from '@mui/material/Typography'
 const Image = ({
   index,
   photo,
+  alt,
   top,
   left,
   margin,
@@ -25,7 +26,7 @@ const Image = ({
   }, [descriptionVisible, isDescriptionVisible]);
 
   const cleanPhoto = {
-    alt: photo.alt,
+    alt,
     src: photo.src,
     height: photo.height,
     width: photo.width,
@@ -44,9 +45,9 @@ const Image = ({
       <ItemWrapper>
         <ImgEl
           key={index}
-          alt={""}
           loading={"lazy"}
           {...cleanPhoto}
+          alt={alt || ""}
         />
         {isMobile ? <StyledPersonIcon /> : ''}
       </ItemWrapper>

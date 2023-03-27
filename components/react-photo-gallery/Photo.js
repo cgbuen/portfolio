@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import styled from 'styled-components'
 
 const imgWithClick = { cursor: 'pointer' };
 
@@ -16,7 +17,7 @@ const Photo = ({ index, onClick, photo, margin, direction, top, left, key }) => 
   };
 
   return (
-    <img
+    <StyledImg
       alt={photo.alt}
       key={key}
       style={onClick ? { ...imgStyle, ...imgWithClick } : imgStyle}
@@ -27,6 +28,8 @@ const Photo = ({ index, onClick, photo, margin, direction, top, left, key }) => 
     />
   );
 };
+
+const StyledImg = styled.img``
 
 export const photoPropType = PropTypes.shape({
   key: PropTypes.string,

@@ -52,12 +52,12 @@ export default function Photography() {
 
   const imageRenderer = () => {
     return function renderer({ index, photo, direction, top, left, key }) {
-      console.log('@#@#', photo.alt)
       return (
         <Image
           key={key}
           index={index}
           photo={photo}
+          alt={photo.alt}
           direction={direction}
           top={top}
           left={left}
