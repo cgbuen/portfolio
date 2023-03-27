@@ -87,9 +87,8 @@ const ResourcesContainer = styled.div`
   .cardTitle {
     text-decoration: underline;
   }
-  .cardDescription: {
+  .cardDescription {
     font-weight: normal;
-    visibility: visible;
   }
   .cardImg {
     visibility: visible;
@@ -108,7 +107,6 @@ const ResourcesContainer = styled.div`
 `
 const Text = styled.div`
   color: white;
-  font-weight: normal;
 `
 const CardDupeContainer = styled.div`
   position: relative;

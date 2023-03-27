@@ -75,7 +75,7 @@ const HeroTextContainer = styled.div`
   transform: translateY(-60%);
   @media (max-width:1080px) {
     top: 58%;
-  },
+  }
   @media (max-width:768px) {
     left: 50%;
     top: 50%;
@@ -116,7 +116,7 @@ const Items = styled.div`
   margin: 0 auto;
   max-width: 960px;
   padding: 0 15px;
-  @media (max-width:568px): {
+  @media (max-width:568px) {
     display: block;
   }
 `
@@ -135,16 +135,16 @@ const ItemLink = styled.div`
   height: 500px;
   opacity: .5;
   transition: opacity .2s ease-in-out;
-  &:hover: {
+  &:hover {
     opacity: .8;
   }
-  @media (max-width:568px): {
+  @media (max-width:568px) {
     height: 240px,
   }
   &.projects {
     background-image: url(${createOptimizedSrc(ASSET_DOMAIN + '/projects/moovweb-geico-01.jpg?2021051900', { quality: 80 })});
     background-position: 2% 72%;
-    @media (max-width:568px): {
+    @media (max-width:568px) {
       background-size: cover;
       background-position: center;
     }
@@ -152,13 +152,13 @@ const ItemLink = styled.div`
   &.photos {
     background-image: url(${createOptimizedSrc(ASSET_DOMAIN + '/concerts/0135%2026.jpg?2021051900', { quality: 80 })});
     background-position: center 75%;
-    @media (max-width:568px): {
+    @media (max-width:568px) {
       background-position: center 60%;
     }
-  },
+  }
   &.keyboards {
     background-image: url(${createOptimizedSrc(ASSET_DOMAIN + '/keyboards/ai03-polaris.jpg?2021052000', { quality: 80 })});
-  },
+  }
 `
 
 const ItemText = styled.div`

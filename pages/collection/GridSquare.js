@@ -6,18 +6,27 @@ export default class GridSquare extends Component {
   render() {
     const { classes, className, src, name, description, onClick } = this.props
     return (
-      <Card className={className} onClick={onClick}>
-        <CardBody>
-          <CardFigure>
-            <CardImg src={src} alt={name} width="250" />
-          </CardFigure>
-        </CardBody>
-        <CardTitle>{name}</CardTitle>
-        <CardDescription>{description}</CardDescription>
-      </Card>
+      <CardWrapper>
+        <Card className={className} onClick={onClick}>
+          <CardBody>
+            <CardFigure>
+              <CardImg src={src} alt={name} width="250" />
+            </CardFigure>
+          </CardBody>
+          <CardTitle>{name}</CardTitle>
+          <CardDescription>{description}</CardDescription>
+        </Card>
+      </CardWrapper>
     )
   }
 }
+
+const CardWrapper = styled.div`
+  @media (max-width:630px) {
+    text-align: center;
+    width: 100%;
+  }
+`
 const Card = styled.div`
   background: rgba(128, 128, 128, .15);
   box-shadow: 1px 1px 7px 0 rgba(32, 32, 32, .3);
@@ -29,7 +38,7 @@ const Card = styled.div`
     background: rgba(128, 128, 128, .35);
   }
   @media (max-width:630px) {
-    width: 100%;
+    display: inline-block;
   }
 `
 const CardTitle = styled.div`

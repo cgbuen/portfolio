@@ -364,7 +364,7 @@ const CardContainer = styled.div`
   flex-wrap: wrap;
   justify-content: space-between;
   margin: 0 -10px;
-  @media (max-width:925px): {
+  @media (max-width:925px) {
     justify-content: center;
   }
 `
@@ -409,7 +409,7 @@ const DescriptionBox = styled.div`
     max-width: none;
     padding: 10px 0 0;
     position: static;
-  },
+  }
   .buildTabsRoot {
     min-height: 0;
   }
@@ -439,7 +439,7 @@ const DescriptionColumn = styled.div`
   width: auto;
   @media (max-width:925px) {
     width: 50%;
-  },
+  }
   @media (max-width:630px) {
     width: auto;
   }
