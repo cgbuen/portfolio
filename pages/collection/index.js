@@ -19,14 +19,14 @@ export default function Collection() {
     const collectionResponseJson = await collectionResponse.json()
     globalDispatch({ type: 'SET_BUILDS', payload: collectionResponseJson.builds })
     globalDispatch({ type: 'SET_KEYSETS', payload: collectionResponseJson.keysets })
-  }, [])
-
-  useEffect(() => {
-    getCollection()
     globalDispatch({ type: 'SET_BUILDFILTERSACTIVE', payload: { Built: true } })
     globalDispatch({ type: 'SET_KEYSETSORT', payload: 'purchase_date' })
     globalDispatch({ type: 'SET_KEYSETDESC', payload: false })
-  }, [getCollection, globalDispatch])
+  }, [globalDispatch])
+
+  useEffect(() => {
+    getCollection()
+  }, [getCollection])
 
   const handleSectionChange = (e, v) => {
     setTab(v)

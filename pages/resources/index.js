@@ -17,7 +17,7 @@ export default function Resources() {
     const linksResponse = await fetch(`/api/links`)
     const linksResponseJson = await linksResponse.json()
     globalDispatch({ type: 'SET_LINKS', payload: linksResponseJson })
-  }, [])
+  }, [globalDispatch])
 
   useEffect(() => {
     getLinks()

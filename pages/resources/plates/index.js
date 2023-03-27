@@ -27,7 +27,7 @@ export default function Plates() {
     const platesResponse = await fetch(`/api/plates`)
     const platesResponseJson = await platesResponse.json()
     globalDispatch({ type: 'SET_PLATES', payload: platesResponseJson })
-  }, [])
+  }, [globalDispatch])
 
   useEffect(() => {
     getPlates()

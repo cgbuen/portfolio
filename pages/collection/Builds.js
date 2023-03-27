@@ -52,7 +52,6 @@ export default function Builds() {
       ...buildFiltersActive,
       [val]: !buildFiltersActive[val]
     }
-    console.log(val, updatedBuildFiltersActive)
     globalDispatch({ type: 'SET_BUILDFILTERSACTIVE', payload: updatedBuildFiltersActive })
   }
 

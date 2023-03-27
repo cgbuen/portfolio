@@ -23,7 +23,7 @@ export default function Commands() {
     const commandsResponse = await fetch(`/api/commands`)
     const commandsResponseJson = await commandsResponse.json()
     globalDispatch({ type: 'SET_COMMANDS', payload: commandsResponseJson })
-  }, [])
+  }, [globalDispatch])
 
   useEffect(() => {
     getCommands()

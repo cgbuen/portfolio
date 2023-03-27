@@ -28,7 +28,7 @@ export default function Gear() {
     const gearResponseJson = await gearResponse.json()
     globalDispatch({ type: 'SET_GEAR', payload: gearResponseJson.gear })
     globalDispatch({ type: 'SET_GEARDESCRIPTIONS', payload: gearResponseJson.gearDescriptions })
-  }, [])
+  }, [globalDispatch])
 
   useEffect(() => {
     getGear()

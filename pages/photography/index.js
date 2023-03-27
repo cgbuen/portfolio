@@ -21,7 +21,7 @@ export default function Photography() {
     const photographyResponse = await fetch(`/api/photography`)
     const photographyResponseJson = await photographyResponse.json()
     globalDispatch({ type: 'SET_PHOTOS', payload: photographyResponseJson })
-  }, [])
+  }, [globalDispatch])
 
   useEffect(() => {
     getPhotos()
@@ -52,6 +52,7 @@ export default function Photography() {
 
   const imageRenderer = () => {
     return function renderer({ index, photo, direction, top, left, key }) {
+      console.log('@#@#', photo.alt)
       return (
         <Image
           key={key}

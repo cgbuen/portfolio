@@ -24,7 +24,7 @@ export default function Projects() {
     const projectsResponse = await fetch(`/api/projects`)
     const projectsResponseJson = await projectsResponse.json()
     globalDispatch({ type: 'SET_PROJECTS', payload: projectsResponseJson })
-  }, [])
+  }, [globalDispatch])
 
   useEffect(() => {
     getProjects()
