@@ -8,12 +8,12 @@ export default class Card extends Component {
     return (
       <CardWrapper className={className || ''} onClick={onClick}>
         <CardBody className={right ? 'right' : ''}>
-          {!right && <img className={classnames('cardImgFigure', classes.cardImg)} src={src} alt={name} />}
+          {!right && <CardImg src={src} alt={name} />}
           <CardHeaderWrapper>
             <CardTitle className={classes.cardTitle}>{name}</CardTitle>
             <CardDescription className={classes.cardDescription}>{description}</CardDescription>
           </CardHeaderWrapper>
-          {right && <img className={'cardImgFigure', 'right', classes.cardImg} src={src} alt={name} />}
+          {right && <CardImg className={"right"} src={src} alt={name} />}
         </CardBody>
       </CardWrapper>
     )
@@ -30,7 +30,17 @@ const CardWrapper = styled.div`
     background: rgba(128, 128, 128, .35);
   }
 `
-
+const CardImg = styled.img`
+  display: block;
+  margin: 0 15px 0 0;
+  visibility: visible;
+  width: 250px;
+  @media (max-width:568px) {
+    display: block;
+    margin: 0 0 15px 0;
+    width: 100%;
+  }
+`
 const CardBody = styled.div`
   align-items: center;
   display: flex;
@@ -41,17 +51,6 @@ const CardBody = styled.div`
     margin: 0 0 0 15px;
     @media (max-width:568px) {
       margin: 15px 0 0 0;
-    }
-  }
-  .cardImgFigure {
-    display: block;
-    margin: 0 15px 0 0;
-    visibility: visible;
-    width: 250px;
-    @media (max-width:568px) {
-      display: block;
-      margin: 0 0 15px 0;
-      width: 100%;
     }
   }
 `

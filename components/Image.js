@@ -22,7 +22,7 @@ const Image = ({
 
   useEffect(() => {
     setIsDescriptionVisible(isDescriptionVisible);
-  }, [descriptionVisible]);
+  }, [descriptionVisible, isDescriptionVisible]);
 
   const cleanPhoto = {
     alt: photo.alt,

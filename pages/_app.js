@@ -14,8 +14,6 @@ export default function App({ Component, pageProps }) {
     <GlobalStateProvider>
       <Head>
         <title>{`${pageName} — cgbuen`}</title>
-        <link rel="stylesheet" href="https://use.typekit.net/kgo8rkq.css" />
-        <link rel="shortcut icon" href="/icons/favicon.ico?v=2021052000" />
       </Head>
       <Theme>
         <Header />
