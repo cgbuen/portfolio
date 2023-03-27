@@ -117,7 +117,7 @@ const AppBarInner2 = styled.div`
   }
 `
 const MenuIconOuter = styled.div`
-  padding: 18px 12px 12px;
+  padding: 12px;
 `
 const HeaderLogoWrapper = styled.div`
   cursor: pointer;
