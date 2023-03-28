@@ -135,3 +135,9 @@ const StyledIconButton = styled(IconButton)`
 const ModalImg = styled.img`
   width: 100%;
 `
+
+export function getStaticProps() {
+  return {
+    props: { name: 'Photography' }
+  }
+}

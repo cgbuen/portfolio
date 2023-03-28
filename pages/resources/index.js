@@ -120,3 +120,9 @@ const FakeLink = styled.span`
   font-weight: bold;
   text-decoration: underline;
 `
+
+export function getStaticProps() {
+  return {
+    props: { name: 'Resources' }
+  }
+}

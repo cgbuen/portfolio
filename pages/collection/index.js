@@ -92,3 +92,9 @@ const CollectionContainer = styled.div`
     background: #69c;
   }
 `
+
+export function getStaticProps() {
+  return {
+    props: { name: 'Collection' }
+  }
+}

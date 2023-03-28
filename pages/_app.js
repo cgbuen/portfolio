@@ -8,7 +8,7 @@ import Theme from 'styles/Theme'
 import '@/styles/globals.css'
 
 export default function App({ Component, pageProps }) {
-  const pageName = Component.prototype.constructor.name
+  const pageName = pageProps.name
   const Wrapper = pageName === 'Home' ? HomePageWrapper : PageWrapper
   return (
     <GlobalStateProvider>

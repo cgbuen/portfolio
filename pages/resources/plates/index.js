@@ -106,3 +106,9 @@ const TableCellKerf = styled(TableCell)`
 const TableCellDescription = styled(TableCell)`
   width: 62.5%;
 `
+
+export function getStaticProps() {
+  return {
+    props: { name: 'Plates' }
+  }
+}

@@ -175,3 +175,9 @@ const ItemText = styled.div`
   top: 50%;
   transform: translate(-50%, -50%);
 `
+
+export function getStaticProps() {
+  return {
+    props: { name: 'Home' }
+  }
+}

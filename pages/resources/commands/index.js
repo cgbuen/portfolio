@@ -142,3 +142,9 @@ const TableCellDescription = styled(TableCell)`
     word-break: break-word;
   }
 `
+
+export function getStaticProps() {
+  return {
+    props: { name: 'Chatbot commands' }
+  }
+}

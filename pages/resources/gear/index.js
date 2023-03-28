@@ -111,3 +111,9 @@ const TableCellItem = styled(TableCell)`
 const TableCellDescription = styled(TableCell)`
   width: 55%;
 `
+
+export function getStaticProps() {
+  return {
+    props: { name: 'Gear' }
+  }
+}

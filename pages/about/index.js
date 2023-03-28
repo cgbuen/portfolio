@@ -49,3 +49,9 @@ const Image = styled.img`
   display: block;
   width: 100%;
 `
+
+export function getStaticProps() {
+  return {
+    props: { name: 'About' }
+  }
+}

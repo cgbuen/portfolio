@@ -62,3 +62,9 @@ export default function Projects() {
     </>
   )
 }
+
+export function getStaticProps() {
+  return {
+    props: { name: 'Projects' }
+  }
+}
