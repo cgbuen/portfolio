@@ -46,7 +46,7 @@ export default function Projects() {
           />
         ))}
       </div>
-      <Dialog maxWidth="md" open={modal.name}>
+      <Dialog maxWidth="md" open={!!modal.name}>
         <DialogTitle>
           <DialogInnerTitleWrapper>
             <DialogInnerTitle>{modal.name}</DialogInnerTitle>
@@ -55,7 +55,7 @@ export default function Projects() {
         </DialogTitle>
         <DialogContent>
           <DialogImgWrapper>
-            <ModalImg alt={modal.name} src={createOptimizedSrc(modal.src, { quality: 90 })} />
+            <ModalImg alt={modal.name} src={modal.src && createOptimizedSrc(modal.src, { quality: 90 })} />
           </DialogImgWrapper>
         </DialogContent>
       </Dialog>
