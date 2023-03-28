@@ -1,13 +1,15 @@
 import { useState } from 'react'
-import Router from 'next/router'
+import Router, { useRouter } from 'next/router'
 import styled from 'styled-components'
 import AppBar from '@mui/material/AppBar'
 import useMediaQuery from '@mui/material/useMediaQuery'
 import Drawer from '@mui/material/Drawer'
 import MenuItem from '@mui/material/MenuItem'
+import Button from '@mui/material/Button'
 import MenuIcon from 'components/MenuIcon'
 
 export default function Header() {
+  const router = useRouter()
   const goTo = link => {
     return () => {
       Router.push(link)
@@ -70,6 +72,7 @@ export default function Header() {
                   <NavTab
                     key={i}
                     onClick={goTo(item.href)}
+                    className={router.pathname.includes(item.href) ? 'selected' : ''}
                   >
                     {item.name}
                   </NavTab>
@@ -146,17 +149,20 @@ const NavTabs = styled.div`
   justify-content: center;
   position: relative;
 `
-const NavTab = styled.div`
+const NavTab = styled(Button)`
   align-items: center;
   background-color: transparent;
+  border-radius: 0;
+  color: white;
   cursor: pointer;
   display: flex;
   font-weight: bold;
   height: 64px;
   min-width: 135px;
   justify-content: center;
+  text-transform: none;
   transition: .5s background-color ease-in-out;
-  &:hover {
+  &.selected {
     background-color: #69c;
   }
   @media (max-width:951px) {
