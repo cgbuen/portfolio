@@ -12,4 +12,25 @@ export default new Router()
   .match('/service-worker.js', ({ serviceWorker }) => {
     return serviceWorker('.next/static/service-worker.js')
   })
+  .get('/api/:api', ({cache}) => {
+    cache({
+      edge: {
+        maxAgeSeconds: 60 * 60 * 24,
+        staleWhileRevalidateSeconds: 60 * 60,
+      },
+    });
+  })
+  .get('/_next/data/:version/:page.json', ({cache}) => {
+    cache({
+      // Allowing service worker (if present) to serve the cached responses from the browser itself
+      browser: {
+        maxAgeSeconds: 0,
+        serviceWorkerSeconds: 60 * 60 * 24,
+      },
+      edge: {
+        maxAgeSeconds: 60 * 60 * 24,
+        staleWhileRevalidateSeconds: 60 * 60,
+      },
+    });
+  })
   .use(nextRoutes) // automatically adds routes for all files under /pages
