@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import Context from 'store/context'
 import classnames from 'classnames'
 import styled from 'styled-components'
@@ -33,6 +33,46 @@ export default function Keysets() {
 
   const { globalState, globalDispatch } = useContext(Context)
   const { keysets, keysetSort, keysetDesc } = globalState
+
+  const escListener = e => {
+    if (e.keyCode === 27) {
+      return closeDialog()
+    }
+  }
+
+  const arrowListener = e => {
+    window.removeEventListener('keyup', arrowListener)
+    if (openKeyset.id) {
+      if (e.keyCode === 37) { // newer
+        openDialog(determineNewerKeyset())
+      }
+      if (e.keyCode === 39) { // older
+        openDialog(determineOlderKeyset())
+      }
+    }
+  }
+
+  useEffect(() => {
+    window.removeEventListener('keyup', escListener)
+    window.addEventListener('keyup', escListener)
+  }, [])
+  useEffect(() => {
+    window.addEventListener('keyup', arrowListener)
+  }, [openKeyset])
+
+  const determineNewerKeyset = () => {
+    const activeKeysets = keysets.filter(x => x.mount_status != 'On the way' && !x.src.includes('unavailable'))
+    const currentKeysetIndex = activeKeysets.findIndex(x => x.id === openKeyset.id)
+    const toOpenIndex = (activeKeysets.length + currentKeysetIndex - 1) % activeKeysets.length
+    return activeKeysets[toOpenIndex]
+  }
+
+  const determineOlderKeyset = () => {
+    const activeKeysets = keysets.filter(x => x.mount_status != 'On the way' && !x.src.includes('unavailable'))
+    const currentKeysetIndex = activeKeysets.findIndex(x => x.id === openKeyset.id)
+    const toOpenIndex = (activeKeysets.length + currentKeysetIndex + 1) % activeKeysets.length
+    return activeKeysets[toOpenIndex]
+  }
 
   const sortKeysets = sort => {
     if (keysetSort === sort) {
