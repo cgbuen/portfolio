@@ -133,11 +133,6 @@ const ItemLink = styled.div`
   cursor: pointer;
   display: block;
   height: 500px;
-  opacity: .5;
-  transition: opacity .2s ease-in-out;
-  &:hover {
-    opacity: .8;
-  }
   @media (max-width:568px) {
     height: 240px,
   }
@@ -162,7 +157,7 @@ const ItemLink = styled.div`
 `
 
 const ItemText = styled.div`
-  background: rgba(102, 153, 204, .75);
+  background: #69c;
   color: white;
   display: inline-block;
   font-weight: bold;

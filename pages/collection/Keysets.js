@@ -211,9 +211,13 @@ export default function Keysets() {
 
 const StyledPaper = styled(Paper)`
   background: #151515;
+  box-shadow: none;
   overflow-x: auto;
   padding: 0 10px;
   margin: 0 10px;
+  @media (prefers-color-scheme: light) {
+    background: white;
+  }
 `
 const StyledTableHeaderRow = styled(TableRow)`
   height: auto;

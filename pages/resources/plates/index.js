@@ -57,9 +57,9 @@ export default function Plates() {
           <Table>
             <TableHead>
               <TableRow>
-                <TableCell>Plate</TableCell>
-                <TableCell>Kerf</TableCell>
-                <TableCell>Notes</TableCell>
+                <StyledTableHeaderCell>Plate</StyledTableHeaderCell>
+                <StyledTableHeaderCell>Kerf</StyledTableHeaderCell>
+                <StyledTableHeaderCell>Notes</StyledTableHeaderCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -95,6 +95,9 @@ export default function Plates() {
 }
 
 const StyledAccordionSummary = styled(AccordionSummary)`
+  font-weight: bold;
+`
+const StyledTableHeaderCell = styled(TableCell)`
   font-weight: bold;
 `
 const TableCellItem = styled(TableCell)`

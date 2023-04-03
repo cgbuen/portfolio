@@ -363,6 +363,9 @@ const IconUnchecked = styled.div`
   .filterActive & {
     display: none;
   }
+  @media (prefers-color-scheme: light) {
+    border-color: #151515;
+  }
 `
 const StyledCheckBoxSharpIcon = styled(CheckBoxSharpIcon)`
   display: none;
@@ -370,6 +373,12 @@ const StyledCheckBoxSharpIcon = styled(CheckBoxSharpIcon)`
     background: white;
     fill: #69c;
     display: block;
+  }
+  @media (prefers-color-scheme: light) {
+    .filterActive & {
+      background: #151515;
+      fill: white;
+    }
   }
 `
 const Filter = styled.div`
@@ -382,6 +391,9 @@ const Filter = styled.div`
   font-weight: bold;
   margin: 0 15px 10px 0;
   padding: 5px 10px;
+  @media (prefers-color-scheme: light) {
+    background: white;
+  }
 `
 const Icon = styled.div`
   border-radius: 2px;
@@ -437,7 +449,7 @@ const DescriptionLink = styled(LinkBlank)`
   }
   .featureIcon {
     fill: #69c;
-    filter: drop-shadow(2px 1px 1px rgba(255, 255, 255, .3));
+    filter: drop-shadow(1px 1px 1px rgba(255, 255, 255, .6));
     display: inline-block;
     height: 16px;
     margin-right: 5px;
@@ -465,7 +477,7 @@ const LinkContainer = styled.div`
     text-shadow: none;
     top: 0;
     .featureIcon {
-      visibility: 'hidden',
+      visibility: hidden;
     }
     ${DescriptionLink} {
       color: transparent;

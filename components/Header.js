@@ -94,7 +94,6 @@ const AppBarInner = styled.div`
   background: #151515;
   border-bottom: 1px solid rgba(0, 0, 0, 0.12);
   border-color: rgba(255, 255, 255, .12);
-  color: white;
   display: flex;
   justify-content: center;
   left: 0;
@@ -102,6 +101,9 @@ const AppBarInner = styled.div`
   right: 0;
   top: 0;
   z-index: 1310;
+  @media (prefers-color-scheme: light) {
+    background: white;
+  }
 `
 const AppBarInner2 = styled.div`
   justify-content: space-between;
@@ -142,6 +144,9 @@ const HeaderLogo = styled.div`
   text-decoration: underline;
   text-decoration-color: #69c;
   top: -4px;
+  @media (prefers-color-scheme: light) {
+    color: #151515;
+  }
 `
 
 const NavTabs = styled.div`
@@ -164,6 +169,12 @@ const NavTab = styled(Button)`
   transition: .5s background-color ease-in-out;
   &.selected {
     background-color: #69c;
+  }
+  @media (prefers-color-scheme: light) {
+    color: #151515;
+    &.selected {
+      color: white;
+    }
   }
   @media (max-width:951px) {
     min-width: 126px;

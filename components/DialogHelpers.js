@@ -17,6 +17,9 @@ const DialogClose = (props) => {
 const StyledIconButton = styled(IconButton)`
   color: white;
   padding: 0;
+  @media (prefers-color-scheme: light) {
+    color: #151515;
+  }
 `
 
 const StyledDialogTitle = styled(DialogTitle)`
@@ -80,6 +83,7 @@ const DescriptionColumn = styled.div`
   }
 `
 const DescriptionDetail = styled.div`
+  color: white;
   text-shadow: 1px 1px 1px rgba(64, 64, 64, 0.4);
 `
 

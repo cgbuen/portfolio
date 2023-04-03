@@ -61,11 +61,17 @@ export default function Commissions() {
 const CommissionsContainer = styled.div`
   .cardTitle {
     color: white;
+    @media (prefers-color-scheme: light) {
+      color: #151515;
+    }
   }
 `
 const Text = styled.div`
   color: white;
   font-weight: normal;
+  @media (prefers-color-scheme: light) {
+    color: #151515;
+  }
 `
 const LinkBlankContainer = styled(LinkBlank)`
   text-decoration: none;

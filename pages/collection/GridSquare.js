@@ -6,8 +6,8 @@ export default class GridSquare extends Component {
   render() {
     const { classes, className, src, name, description, onClick } = this.props
     return (
-      <CardWrapper>
-        <Card className={className} onClick={onClick}>
+      <CardWrapper className={className} onClick={onClick}>
+        <Card>
           <CardBody>
             <CardFigure>
               <CardImg src={src} alt={name} width="250" />
@@ -39,9 +39,6 @@ const Card = styled.div`
   }
   @media (max-width:630px) {
     display: inline-block;
-    &.hide {
-      display: none;
-    }
   }
 `
 const CardTitle = styled.div`

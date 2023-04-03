@@ -120,8 +120,11 @@ const StyledCode = styled.code`
 const Aliases = styled.p`
   code {
     background: rgba(128, 128, 128, .2);
-    color: rgba(255, 255, 255, .8);
+    color: white;
     font-size: 13px;
+    @media (prefers-color-scheme: light) {
+      color: #151515;
+    }
   }
 `
 const AliasesTitle = styled.i`

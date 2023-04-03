@@ -5,8 +5,8 @@
     'Roboto Mono', 'Oxygen Mono', 'Ubuntu Monospace', 'Source Code Pro',
     'Fira Mono', 'Droid Sans Mono', 'Courier New', monospace;
 
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
+  --foreground-rgb: 21, 21, 21;
+  --background-start-rgb: 255, 255, 255;
   --background-end-rgb: 255, 255, 255;
 
   --primary-glow: conic-gradient(
@@ -89,7 +89,7 @@ body {
 
 body {
   color: rgb(var(--foreground-rgb));
-  background: var(--background-start-rgb);
+  background: rgb(var(--background-start-rgb));
 }
 svg {
   fill: transparent;

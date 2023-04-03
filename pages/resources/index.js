@@ -107,6 +107,9 @@ const ResourcesContainer = styled.div`
 `
 const Text = styled.div`
   color: white;
+  @media (prefers-color-scheme: light) {
+    color: #151515;
+  }
 `
 const CardDupeContainer = styled.div`
   position: relative;

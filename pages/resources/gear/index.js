@@ -49,8 +49,8 @@ export default function Gear() {
           <Table>
             <TableHead>
               <TableRow>
-                <TableCell>Item</TableCell>
-                <TableCell>Notes</TableCell>
+                <StyledTableHeaderCell>Item</StyledTableHeaderCell>
+                <StyledTableHeaderCell>Notes</StyledTableHeaderCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -103,6 +103,9 @@ export default function Gear() {
 }
 
 const StyledAccordionSummary = styled(AccordionSummary)`
+  font-weight: bold;
+`
+const StyledTableHeaderCell = styled(TableCell)`
   font-weight: bold;
 `
 const TableCellItem = styled(TableCell)`

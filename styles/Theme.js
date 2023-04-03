@@ -44,6 +44,10 @@ export const theme = createTheme({
         paper: {
           background: '#151515',
           color: 'white',
+          '@media (prefers-color-scheme: light)': {
+            background: 'white',
+            color: '#151515'
+          },
         },
       },
     },
@@ -57,7 +61,11 @@ export const theme = createTheme({
     MuiTableCell: {
       styleOverrides: {
         root: {
-          color: 'white'
+          color: 'white',
+          '@media (prefers-color-scheme: light)': {
+            color: '#151515',
+            borderBottomColor: 'rgba(212, 212, 212, 1)'
+          },
         },
       },
     },
@@ -65,12 +73,22 @@ export const theme = createTheme({
       styleOverrides: {
         root: {
           background: 'rgba(128, 128, 128, .2)',
+          boxShadow: 'none',
           color: 'white',
+          '@media (prefers-color-scheme: light)': {
+            color: '#151515'
+          },
           '& .MuiSvgIcon-root': {
-            fill: 'white'
+            fill: 'white',
+            '@media (prefers-color-scheme: light)': {
+              fill: '#151515'
+            },
           },
           '&.Mui-expanded': {
             margin: 0,
+            '&:before': {
+              opacity: 1,
+            },
           },
         },
       },
