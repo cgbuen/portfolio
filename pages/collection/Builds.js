@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import Context from 'store/context'
 import styled from 'styled-components'
 import classnames from 'classnames'
@@ -35,9 +35,34 @@ export default function Builds() {
   const [buildDetailsOpen, setBuildDetailsOpen] = useState(false)
   const [dialogImg, setDialogImg] = useState('')
 
-
   const { globalState, globalDispatch } = useContext(Context)
   const { builds, buildFiltersActive } = globalState
+
+  const escListener = e => {
+    if (e.keyCode === 27) {
+      return closeDialog()
+    }
+  }
+
+  const arrowListener = e => {
+    window.removeEventListener('keyup', arrowListener)
+    if (openBuild.id) {
+      if (e.keyCode === 37) { // newer
+        openDialog(determineNewerBuild())
+      }
+      if (e.keyCode === 39) { // older
+        openDialog(determineOlderBuild())
+      }
+    }
+  }
+
+  useEffect(() => {
+    window.removeEventListener('keyup', escListener)
+    window.addEventListener('keyup', escListener)
+  }, [])
+  useEffect(() => {
+    window.addEventListener('keyup', arrowListener)
+  }, [openBuild])
 
   const toggleFilteredBuilds = (val) => {
     const updatedBuilds = builds.map(x => {
