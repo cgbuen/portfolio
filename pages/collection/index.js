@@ -87,7 +87,7 @@ const CollectionContainer = styled.div`
     min-width: 0;
     opacity: 1;
     text-transform: none;
-    @media (prefers-color-scheme: light) {
+    .light-mode & {
       color: #151515;
     }
   }

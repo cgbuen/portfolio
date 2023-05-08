@@ -101,7 +101,7 @@ const AppBarInner = styled.div`
   right: 0;
   top: 0;
   z-index: 1310;
-  @media (prefers-color-scheme: light) {
+  .light-mode & {
     background: white;
   }
 `
@@ -144,7 +144,7 @@ const HeaderLogo = styled.div`
   text-decoration: underline;
   text-decoration-color: #69c;
   top: -4px;
-  @media (prefers-color-scheme: light) {
+  .light-mode & {
     color: #151515;
   }
 `
@@ -170,7 +170,7 @@ const NavTab = styled(Button)`
   &.selected {
     background-color: #69c;
   }
-  @media (prefers-color-scheme: light) {
+  .light-mode & {
     color: #151515;
     &.selected {
       color: white;

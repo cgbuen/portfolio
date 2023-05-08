@@ -44,7 +44,7 @@ export const theme = createTheme({
         paper: {
           background: '#151515',
           color: 'white',
-          '@media (prefers-color-scheme: light)': {
+          '.light-mode &': {
             background: 'white',
             color: '#151515'
           },
@@ -62,7 +62,7 @@ export const theme = createTheme({
       styleOverrides: {
         root: {
           color: 'white',
-          '@media (prefers-color-scheme: light)': {
+          '.light-mode &': {
             color: '#151515',
             borderBottomColor: 'rgba(212, 212, 212, 1)'
           },
@@ -75,12 +75,12 @@ export const theme = createTheme({
           background: 'rgba(128, 128, 128, .2)',
           boxShadow: 'none',
           color: 'white',
-          '@media (prefers-color-scheme: light)': {
+          '.light-mode &': {
             color: '#151515'
           },
           '& .MuiSvgIcon-root': {
             fill: 'white',
-            '@media (prefers-color-scheme: light)': {
+            '.light-mode &': {
               fill: '#151515'
             },
           },

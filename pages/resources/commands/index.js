@@ -122,7 +122,7 @@ const Aliases = styled.p`
     background: rgba(128, 128, 128, .2);
     color: white;
     font-size: 13px;
-    @media (prefers-color-scheme: light) {
+    .light-mode & {
       color: #151515;
     }
   }

@@ -61,7 +61,7 @@ export default function Commissions() {
 const CommissionsContainer = styled.div`
   .cardTitle {
     color: white;
-    @media (prefers-color-scheme: light) {
+    .light-mode & {
       color: #151515;
     }
   }
@@ -69,7 +69,7 @@ const CommissionsContainer = styled.div`
 const Text = styled.div`
   color: white;
   font-weight: normal;
-  @media (prefers-color-scheme: light) {
+  .light-mode & {
     color: #151515;
   }
 `
