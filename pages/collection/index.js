@@ -93,7 +93,9 @@ const CollectionContainer = styled.div`
   }
   .collectionTabRootActive {
     background: #69c;
-    color: white;
+    &, .light-mode & {
+      color: white;
+    }
   }
 `
 

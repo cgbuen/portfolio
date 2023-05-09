@@ -93,6 +93,13 @@ export const theme = createTheme({
         },
       },
     },
+    MuiSvgIcon: {
+      styleOverrides: {
+        root: {
+          transition: 'none'
+        }
+      },
+    },
   },
 })
 
