@@ -107,7 +107,7 @@ const ResourcesContainer = styled.div`
 `
 const Text = styled.div`
   color: white;
-  @media (prefers-color-scheme: light) {
+  .light-mode & {
     color: #151515;
   }
 `

@@ -17,7 +17,7 @@ const DialogClose = (props) => {
 const StyledIconButton = styled(IconButton)`
   color: white;
   padding: 0;
-  @media (prefers-color-scheme: light) {
+  .light-mode & {
     color: #151515;
   }
 `

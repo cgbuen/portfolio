@@ -112,7 +112,7 @@ const SocialContainer = styled.div`
       @media (max-width:1080px), (min-width:1920px) {
         display: inline-block;
       }
-      @media (prefers-color-scheme: light) {
+      .light-mode & {
         .icon {
           fill: #151515;
           filter: none;

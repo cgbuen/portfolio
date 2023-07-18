@@ -215,7 +215,7 @@ const StyledPaper = styled(Paper)`
   overflow-x: auto;
   padding: 0 10px;
   margin: 0 10px;
-  @media (prefers-color-scheme: light) {
+  .light-mode & {
     background: white;
   }
 `

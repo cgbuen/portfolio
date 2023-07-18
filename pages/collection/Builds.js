@@ -363,7 +363,7 @@ const IconUnchecked = styled.div`
   .filterActive & {
     display: none;
   }
-  @media (prefers-color-scheme: light) {
+  .light-mode & {
     border-color: #151515;
   }
 `
@@ -374,7 +374,7 @@ const StyledCheckBoxSharpIcon = styled(CheckBoxSharpIcon)`
     fill: #69c;
     display: block;
   }
-  @media (prefers-color-scheme: light) {
+  .light-mode & {
     .filterActive & {
       background: #151515;
       fill: white;
@@ -391,7 +391,7 @@ const Filter = styled.div`
   font-weight: bold;
   margin: 0 15px 10px 0;
   padding: 5px 10px;
-  @media (prefers-color-scheme: light) {
+  .light-mode & {
     background: white;
   }
 `
