@@ -12,7 +12,6 @@ export default async function handler(req, res) {
   const builds = buildsResponse
     .map(build => {
       build.src = `${ASSET_DOMAIN}/keyboards/${build.src}.jpg?${build.cache_buster}`
-      build.active = !!build.active
       if (build.assembly_variant.includes('A') && build.build_status === filter) {
         build.loaded = true
         build.displayed = true

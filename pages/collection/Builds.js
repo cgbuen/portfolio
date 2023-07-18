@@ -91,6 +91,7 @@ export default function Builds() {
     const activeBuilds = builds.filter(x => x.displayed && !x.src.includes('unavailable'))
     const currentBuildIndex = activeBuilds.findIndex(x => x.id === openBuild.id)
     const toOpenIndex = (activeBuilds.length + currentBuildIndex + 1) % activeBuilds.length
+    console.log(toOpenIndex, activeBuilds)
     return activeBuilds[toOpenIndex]
   }
 
@@ -236,6 +237,7 @@ export default function Builds() {
   }
 
   const openDialog = (build) => {
+    console.log(build)
     if (!(build.src.includes('unavailable') || build.otw_link)) {
       setOpenBuild(build)
       setVariantVal(0)
@@ -280,10 +282,6 @@ export default function Builds() {
         {builds
           .map(x => {
             let src = x.src
-            if (!x.active && x.assembly_variant === 'A') {
-              const active = builds.filter(y => y.board_id === x.board_id && y.active)
-              src = active[0].src
-            }
             return x.loaded && (
               <GridSquare
                 className={classnames(!x.displayed && 'hide', !(x.src.includes('unavailable') || x.otw_link) && 'clickable')}
