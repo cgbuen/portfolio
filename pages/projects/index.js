@@ -26,6 +26,21 @@ export default function Projects() {
     globalDispatch({ type: 'SET_PROJECTS', payload: projectsResponseJson })
   }, [globalDispatch])
 
+  const escListener = e => {
+    if (e.keyCode === 27) {
+      return closeDialog()
+    }
+  }
+
+  const closeDialog = () => {
+    setModal({})
+  }
+
+  useEffect(() => {
+    window.removeEventListener('keyup', escListener)
+    window.addEventListener('keyup', escListener)
+  }, [])
+
   useEffect(() => {
     getProjects()
   }, [getProjects])

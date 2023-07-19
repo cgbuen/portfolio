@@ -91,6 +91,8 @@ export const theme = createTheme({
           },
           '& .MuiSvgIcon-root': {
             fill: 'white',
+            height: '1em',
+            width: '1em',
             '.light-mode &': {
               fill: '#151515'
             },

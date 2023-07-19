@@ -17,6 +17,10 @@ const DialogClose = (props) => {
 const StyledIconButton = styled(IconButton)`
   color: white;
   padding: 0;
+  svg {
+    height: 1em;
+    width: 1em;
+  }
   .light-mode & {
     color: #151515;
   }

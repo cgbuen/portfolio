@@ -367,8 +367,10 @@ const StyledCheckBoxSharpIcon = styled(CheckBoxSharpIcon)`
   display: none;
   .filterActive & {
     background: white;
-    fill: #69c;
     display: block;
+    fill: #69c;
+    height: 24px;
+    width: 24px;
   }
   .light-mode & {
     .filterActive & {
