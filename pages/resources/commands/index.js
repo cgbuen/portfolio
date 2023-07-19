@@ -20,9 +20,11 @@ export default function Commands() {
   const { commands } = globalState
 
   const getCommands = useCallback(async () => {
+    globalDispatch({ type: 'SET_LOADING', payload: true })
     const commandsResponse = await fetch(`/api/commands`)
     const commandsResponseJson = await commandsResponse.json()
     globalDispatch({ type: 'SET_COMMANDS', payload: commandsResponseJson })
+    globalDispatch({ type: 'SET_LOADING', payload: false })
   }, [globalDispatch])
 
   useEffect(() => {

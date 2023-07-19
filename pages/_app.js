@@ -5,6 +5,7 @@ import CssBaseline from '@mui/material/CssBaseline';
 import Header from 'components/Header'
 import Footer from 'components/Footer'
 import ColorSchemePicker from 'components/ColorSchemePicker'
+import Loading from 'components/Loading'
 import styled from 'styled-components'
 import GlobalStyles from 'styles/GlobalStyles'
 import Theme from 'styles/Theme'
@@ -21,9 +22,12 @@ export default function App({ Component, pageProps }) {
       <Theme>
         <CssBaseline />
         <Header />
-        <Wrapper>
-          <Component {...pageProps} />
-        </Wrapper>
+        <OuterWrapper>
+          <Wrapper>
+            <Loading />
+            <Component {...pageProps} />
+          </Wrapper>
+        </OuterWrapper>
         <Footer />
         <ColorSchemePicker />
       </Theme>
@@ -31,9 +35,13 @@ export default function App({ Component, pageProps }) {
   )
 }
 
+const OuterWrapper = styled.div`
+  position: relative;
+`
 const HomePageWrapper = styled.div``
 const PageWrapper = styled.div`
   margin: 0 auto;
   max-width: 960px;
+  overflow: hidden;
   padding: 0 15px;
 `

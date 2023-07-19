@@ -15,6 +15,7 @@ export default function Collection() {
   const [tab, setTab] = useState(0)
 
   const getCollection = useCallback(async () => {
+    globalDispatch({ type: 'SET_LOADING', payload: true })
     const collectionResponse = await fetch(`/api/collection`)
     const collectionResponseJson = await collectionResponse.json()
     globalDispatch({ type: 'SET_BUILDS', payload: collectionResponseJson.builds })
@@ -22,6 +23,7 @@ export default function Collection() {
     globalDispatch({ type: 'SET_BUILDFILTERSACTIVE', payload: { Built: true } })
     globalDispatch({ type: 'SET_KEYSETSORT', payload: 'purchase_date' })
     globalDispatch({ type: 'SET_KEYSETDESC', payload: false })
+    globalDispatch({ type: 'SET_LOADING', payload: false })
   }, [globalDispatch])
 
   useEffect(() => {

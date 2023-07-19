@@ -89,6 +89,7 @@ export default function Header() {
 const AppBarStyled = styled(AppBar)`
   height: 64px;
   position: relative;
+  z-index: 999999;
 `
 const AppBarInner = styled.div`
   background: #151515;

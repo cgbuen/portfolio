@@ -21,9 +21,11 @@ export default function Projects() {
   const [modal, setModal] = useState({})
 
   const getProjects = useCallback(async () => {
+    globalDispatch({ type: 'SET_LOADING', payload: true })
     const projectsResponse = await fetch(`/api/projects`)
     const projectsResponseJson = await projectsResponse.json()
     globalDispatch({ type: 'SET_PROJECTS', payload: projectsResponseJson })
+    globalDispatch({ type: 'SET_LOADING', payload: false })
   }, [globalDispatch])
 
   const escListener = e => {
