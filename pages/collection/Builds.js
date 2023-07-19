@@ -91,7 +91,6 @@ export default function Builds() {
     const activeBuilds = builds.filter(x => x.displayed && !x.src.includes('unavailable'))
     const currentBuildIndex = activeBuilds.findIndex(x => x.id === openBuild.id)
     const toOpenIndex = (activeBuilds.length + currentBuildIndex + 1) % activeBuilds.length
-    console.log(toOpenIndex, activeBuilds)
     return activeBuilds[toOpenIndex]
   }
 
@@ -237,7 +236,6 @@ export default function Builds() {
   }
 
   const openDialog = (build) => {
-    console.log(build)
     if (!(build.src.includes('unavailable') || build.otw_link)) {
       setOpenBuild(build)
       setVariantVal(0)
