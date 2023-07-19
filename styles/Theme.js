@@ -12,12 +12,21 @@ export const theme = createTheme({
     }
   },
   components: {
+    MuiCssBaseline: {
+      styleOverrides: {
+        body: {
+          background: '#151515',
+        },
+        '#__next': {
+          display: 'none'
+        },
+      },
+    },
     MuiAppBar: {
       styleOverrides: {
         colorPrimary: {
           background: 'transparent',
           boxShadow: 'none',
-          color: 'transparent',
         },
       },
     },

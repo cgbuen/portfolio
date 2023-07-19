@@ -92,6 +92,10 @@ const GlobalStyles = createGlobalStyle`
     background: rgb(var(--background-start-rgb));
     color: rgb(var(--foreground-rgb));
   }
+
+  #__next {
+    display: block;
+  }
   svg {
     fill: transparent;
   }

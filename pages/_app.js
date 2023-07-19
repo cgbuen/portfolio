@@ -1,6 +1,7 @@
-import React, { useMemo, useState } from 'react'
+import React from 'react'
 import Head from 'next/head'
 import GlobalStateProvider from 'store/GlobalStateProvider'
+import CssBaseline from '@mui/material/CssBaseline';
 import Header from 'components/Header'
 import Footer from 'components/Footer'
 import ColorSchemePicker from 'components/ColorSchemePicker'
@@ -18,6 +19,7 @@ export default function App({ Component, pageProps }) {
         <title>{`${pageName} — cgbuen`}</title>
       </Head>
       <Theme>
+        <CssBaseline />
         <Header />
         <Wrapper>
           <Component {...pageProps} />
