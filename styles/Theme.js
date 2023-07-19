@@ -16,6 +16,8 @@ export const theme = createTheme({
       styleOverrides: {
         colorPrimary: {
           background: 'transparent',
+          boxShadow: 'none',
+          color: 'transparent',
         },
       },
     },
@@ -96,7 +98,9 @@ export const theme = createTheme({
     MuiSvgIcon: {
       styleOverrides: {
         root: {
-          transition: 'none'
+          height: 'inherit',
+          transition: 'none',
+          width: 'inherit',
         }
       },
     },

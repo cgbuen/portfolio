@@ -31,7 +31,7 @@ export default function Social({ className }) {
         {
           iconsLine1.map((x, i) => (
             <LinkBlankIcon key={i} to={social[x.name]}>
-              <x.icon className={"icon"} />
+              <x.icon className={"icon"} height={0} />
             </LinkBlankIcon>
           ))
         }
@@ -40,13 +40,13 @@ export default function Social({ className }) {
         {
           iconsLine2.map((x, i) => (
             <LinkBlankIcon key={i} to={social[x.name]}>
-              <x.icon className={"icon"} />
+              <x.icon className={"icon"} height={0} />
             </LinkBlankIcon>
           ))
         }
         {!inHero && (
           <LinkBlankIcon to={`mailto:${social.email}`}>
-            <Mail className={"icon"} />
+            <Mail className={"icon"} height={0} />
           </LinkBlankIcon>
 )}
       </Line>

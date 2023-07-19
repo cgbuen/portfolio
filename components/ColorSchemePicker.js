@@ -13,7 +13,7 @@ export default function ColorSchemePicker() {
   const Icon = isLightMode ? DarkModeIcon : LightModeIcon
   return (
     <IconWrapper onClick={() => setIsLightMode(!isLightMode)}>
-      <Icon />
+      <Icon height={0} />
     </IconWrapper>
   )
 }
@@ -28,5 +28,7 @@ const IconWrapper = styled.div`
   position: fixed;
   svg {
     display: block;
+    height: 1em;
+    width: 1em;
   }
 `
