@@ -59,10 +59,10 @@ export default function Builds() {
   useEffect(() => {
     window.removeEventListener('keyup', escListener)
     window.addEventListener('keyup', escListener)
-  }, [])
+  }, [escListener])
   useEffect(() => {
     window.addEventListener('keyup', arrowListener)
-  }, [openBuild])
+  }, [openBuild, arrowListener])
 
   const toggleFilteredBuilds = (val) => {
     const updatedBuilds = builds.map(x => {

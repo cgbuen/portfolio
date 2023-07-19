@@ -55,10 +55,11 @@ export default function Keysets() {
   useEffect(() => {
     window.removeEventListener('keyup', escListener)
     window.addEventListener('keyup', escListener)
-  }, [])
+  }, [escListener])
+
   useEffect(() => {
     window.addEventListener('keyup', arrowListener)
-  }, [openKeyset])
+  }, [openKeyset, arrowListener])
 
   const determineNewerKeyset = () => {
     const activeKeysets = keysets.filter(x => x.mount_status != 'On the way' && !x.src.includes('unavailable'))

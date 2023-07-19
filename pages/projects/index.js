@@ -39,7 +39,7 @@ export default function Projects() {
   useEffect(() => {
     window.removeEventListener('keyup', escListener)
     window.addEventListener('keyup', escListener)
-  }, [])
+  }, [escListener])
 
   useEffect(() => {
     getProjects()
