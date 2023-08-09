@@ -22,8 +22,8 @@ export default async function handler(req, res) {
       return build
     })
     .sort((x, y) => {
-      const useDateX = ['TBD', 'N/A'].includes(x.date_built) ? x.date_bought: x.date_built
-      const useDateY = ['TBD', 'N/A'].includes(y.date_built) ? y.date_bought: y.date_built
+      const useDateX = ['TBD', 'N/A'].includes(x.date_built_latest) ? x.date_bought: x.date_built_latest
+      const useDateY = ['TBD', 'N/A'].includes(y.date_built_latest) ? y.date_bought: y.date_built_latest
       return useDateX.localeCompare(useDateY)
     })
     .reverse()

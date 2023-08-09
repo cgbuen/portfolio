@@ -105,7 +105,7 @@ const GlobalStyles = createGlobalStyle`
     text-decoration: none;
   }
 
-  p {
+  p, ul {
     margin-bottom: 15px;
   }
 
