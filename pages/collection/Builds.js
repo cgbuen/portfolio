@@ -59,10 +59,10 @@ export default function Builds() {
   useEffect(() => {
     window.removeEventListener('keyup', escListener)
     window.addEventListener('keyup', escListener)
-  }, [])
+  }, [escListener])
   useEffect(() => {
     window.addEventListener('keyup', arrowListener)
-  }, [openBuild])
+  }, [openBuild, arrowListener])
 
   const toggleFilteredBuilds = (val) => {
     const updatedBuilds = builds.map(x => {
@@ -148,7 +148,7 @@ export default function Builds() {
     if (!x === 'Built' || x.assembly_variant === 'A0') {
       return descriptionizeIndividual(x)
     } else {
-      const variants = builds.filter(y => y.board_id === x.board_id)
+      const variants = builds.filter(y => y.board_id === x.board_id).sort((x, y) => x.id - y.id)
       return (
         <>
           <Tabs
@@ -237,8 +237,18 @@ export default function Builds() {
 
   const openDialog = (build) => {
     if (!(build.src.includes('unavailable') || build.otw_link)) {
+      let variantVal = 0
+      if (build.assembly_variant !== 'A0') {
+        const variants = builds.filter(y => y.board_id === build.board_id).sort((x, y) => x.id - y.id)
+        variants.some((x, i) => {
+          if (x.assembly_variant === build.assembly_variant) {
+            variantVal = i
+            return true
+          }
+        })
+      }
       setOpenBuild(build)
-      setVariantVal(0)
+      setVariantVal(variantVal)
       setBuildDetailsOpen(false)
       setDialogImg(build.src)
     }
@@ -254,8 +264,10 @@ export default function Builds() {
   const determineDate = (x) => {
     if (['TBD', 'N/A'].includes(x.date_built)) {
       return `Purchased ${x.date_bought}`
+    } else if (x.build_status === 'Built' && x.date_built === x.date_built_latest) {
+      return `Built ${x.date_built_latest}`
     } else if (x.build_status === 'Built') {
-      return `Built ${x.date_built}`
+      return `Last built ${x.date_built_latest}`
     } else {
       return `Modified ${x.date_built}`
     }
@@ -280,10 +292,6 @@ export default function Builds() {
         {builds
           .map(x => {
             let src = x.src
-            if (!x.active && x.assembly_variant === 'A') {
-              const active = builds.filter(y => y.board_id === x.board_id && y.active)
-              src = active[0].src
-            }
             return x.loaded && (
               <GridSquare
                 className={classnames(!x.displayed && 'hide', !(x.src.includes('unavailable') || x.otw_link) && 'clickable')}
@@ -297,6 +305,7 @@ export default function Builds() {
           })
         }
         {builds.filter(x => x.displayed).length % 3 === 2 && (<PlaceholderBox></PlaceholderBox>)}
+        {builds.filter(x => x.displayed).length % 3 === 1 && (<><PlaceholderBox></PlaceholderBox><PlaceholderBox></PlaceholderBox></>)}
         {builds.filter(x => x.displayed).length === 0 && <NoResults>Select a filter above to see results.</NoResults>}
       </CardContainer>
       <Dialog maxWidth="xl" open={!!openBuild.name}>
@@ -371,8 +380,10 @@ const StyledCheckBoxSharpIcon = styled(CheckBoxSharpIcon)`
   display: none;
   .filterActive & {
     background: white;
-    fill: #69c;
     display: block;
+    fill: #69c;
+    height: 24px;
+    width: 24px;
   }
   .light-mode & {
     .filterActive & {

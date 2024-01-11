@@ -14,9 +14,11 @@ export default function Resources() {
   const { links } = globalState
 
   const getLinks = useCallback(async () => {
+    globalDispatch({ type: 'SET_LOADING', payload: true })
     const linksResponse = await fetch(`/api/links`)
     const linksResponseJson = await linksResponse.json()
     globalDispatch({ type: 'SET_LINKS', payload: linksResponseJson })
+    globalDispatch({ type: 'SET_LOADING', payload: false })
   }, [globalDispatch])
 
   useEffect(() => {

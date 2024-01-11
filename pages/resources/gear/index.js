@@ -24,10 +24,12 @@ export default function Gear() {
   const { gear, gearDescriptions } = globalState
 
   const getGear = useCallback(async () => {
+    globalDispatch({ type: 'SET_LOADING', payload: true })
     const gearResponse = await fetch(`/api/gear`)
     const gearResponseJson = await gearResponse.json()
     globalDispatch({ type: 'SET_GEAR', payload: gearResponseJson.gear })
     globalDispatch({ type: 'SET_GEARDESCRIPTIONS', payload: gearResponseJson.gearDescriptions })
+    globalDispatch({ type: 'SET_LOADING', payload: false })
   }, [globalDispatch])
 
   useEffect(() => {

@@ -10,9 +10,13 @@ import MenuIcon from 'components/MenuIcon'
 
 export default function Header() {
   const router = useRouter()
-  const goTo = link => {
+  const goTo = (link, blank) => {
     return () => {
-      Router.push(link)
+      if (blank) {
+        window.open(link)
+      } else {
+        Router.push(link)
+      }
     }
   }
 
@@ -36,6 +40,7 @@ export default function Header() {
     { name: 'About', href: '/about' },
     { name: 'Commissions', href: '/commissions' },
     { name: 'Resources', href: '/resources' },
+    { name: 'Store', href: 'https://store.cgbuen.io/', blank: true },
   ]
   return (
     <AppBarStyled
@@ -53,7 +58,7 @@ export default function Header() {
                   items.map((item, i) => (
                     <MenuItem
                       key={i}
-                      onClick={goTo(item.href)}
+                      onClick={goTo(item.href, item.blank)}
                     >
                       {item.name}
                     </MenuItem>
@@ -71,8 +76,8 @@ export default function Header() {
                 items.map((item, i) => (
                   <NavTab
                     key={i}
-                    onClick={goTo(item.href)}
-                    className={router.pathname.includes(item.href) ? 'selected' : ''}
+                    onClick={goTo(item.href, item.blank)}
+                    className={router.pathname.includes(item.href) && !item.blank ? 'selected' : ''}
                   >
                     {item.name}
                   </NavTab>
@@ -89,6 +94,7 @@ export default function Header() {
 const AppBarStyled = styled(AppBar)`
   height: 64px;
   position: relative;
+  z-index: 999999;
 `
 const AppBarInner = styled.div`
   background: #151515;
@@ -163,7 +169,7 @@ const NavTab = styled(Button)`
   display: flex;
   font-weight: bold;
   height: 64px;
-  min-width: 135px;
+  min-width: 115px;
   justify-content: center;
   text-transform: none;
   transition: .5s background-color ease-in-out;

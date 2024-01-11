@@ -12,10 +12,21 @@ export const theme = createTheme({
     }
   },
   components: {
+    MuiCssBaseline: {
+      styleOverrides: {
+        body: {
+          background: '#151515',
+        },
+        '#__next': {
+          display: 'none'
+        },
+      },
+    },
     MuiAppBar: {
       styleOverrides: {
         colorPrimary: {
           background: 'transparent',
+          boxShadow: 'none',
         },
       },
     },
@@ -80,6 +91,8 @@ export const theme = createTheme({
           },
           '& .MuiSvgIcon-root': {
             fill: 'white',
+            height: '1em',
+            width: '1em',
             '.light-mode &': {
               fill: '#151515'
             },
@@ -96,7 +109,9 @@ export const theme = createTheme({
     MuiSvgIcon: {
       styleOverrides: {
         root: {
-          transition: 'none'
+          height: 'inherit',
+          transition: 'none',
+          width: 'inherit',
         }
       },
     },

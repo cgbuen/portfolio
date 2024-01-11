@@ -18,9 +18,11 @@ export default function Photography() {
   const [index, setIndex] = useState(-1)
 
   const getPhotos = useCallback(async () => {
+    globalDispatch({ type: 'SET_LOADING', payload: true })
     const photographyResponse = await fetch(`/api/photography`)
     const photographyResponseJson = await photographyResponse.json()
     globalDispatch({ type: 'SET_PHOTOS', payload: photographyResponseJson })
+    globalDispatch({ type: 'SET_LOADING', payload: false })
   }, [globalDispatch])
 
   useEffect(() => {

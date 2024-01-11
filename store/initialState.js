@@ -1,4 +1,5 @@
 const initialState = {
+  loading: false,
   projects: [],
   photos: [],
   builds: [],
