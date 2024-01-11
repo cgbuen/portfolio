@@ -6,6 +6,7 @@ export default async function handler(req, res) {
   const requests = []
   requests.push(fetch(`${ASSET_DOMAIN}/keyboards/collection.json`))
   requests.push(fetch(`${ASSET_DOMAIN}/keyboards/keysets.json`))
+  requests.push(fetch(`${ASSET_DOMAIN}/keyboards/switches.json`))
   const filter = 'Built'
   const responses = await Promise.all(requests)
   const buildsResponse = await responses[0].json()
@@ -35,9 +36,17 @@ export default async function handler(req, res) {
       return keyset
     })
     .reverse()
+  const switchesResponse = await responses[2].json()
+  const switches = switchesResponse
+    .filter(keyset => ['Tune', 'Ready', 'Mounted', 'Re-tune'].includes(keyset.mount_status))
+    .reverse()
+  console.log(new Date(responses[2].headers.get('Last-Modified')).valueOf())
+  const dates = responses.map(x => new Date(x.headers.get('Last-Modified')).valueOf())
   const finalResponse = {
     builds,
     keysets,
+    switches,
+    date: new Date(dates.reduce((a, b) => Math.max(a, b), -Infinity)).toLocaleString()
   }
   res.status(200).json(finalResponse)
 }

@@ -7,11 +7,12 @@ import Tabs from '@mui/material/Tabs'
 import Tab from '@mui/material/Tab'
 import Builds from './Builds'
 import Keysets from './Keysets'
+import Switches from './Switches'
 import LinkBlank from 'components/LinkBlank'
 
 export default function Collection() {
   const { globalState, globalDispatch } = useContext(Context)
-  const { collection, social } = globalState
+  const { collectionUpdated, social } = globalState
   const [tab, setTab] = useState(0)
 
   const getCollection = useCallback(async () => {
@@ -20,9 +21,13 @@ export default function Collection() {
     const collectionResponseJson = await collectionResponse.json()
     globalDispatch({ type: 'SET_BUILDS', payload: collectionResponseJson.builds })
     globalDispatch({ type: 'SET_KEYSETS', payload: collectionResponseJson.keysets })
+    globalDispatch({ type: 'SET_SWITCHES', payload: collectionResponseJson.switches })
+    globalDispatch({ type: 'SET_COLLECTIONUPDATED', payload: collectionResponseJson.date })
     globalDispatch({ type: 'SET_BUILDFILTERSACTIVE', payload: { Built: true } })
     globalDispatch({ type: 'SET_KEYSETSORT', payload: 'purchase_date' })
     globalDispatch({ type: 'SET_KEYSETDESC', payload: false })
+    globalDispatch({ type: 'SET_SWITCHESSORT', payload: 'purchase_date' })
+    globalDispatch({ type: 'SET_SWITCHESDESC', payload: false })
     globalDispatch({ type: 'SET_LOADING', payload: false })
   }, [globalDispatch])
 
@@ -37,7 +42,8 @@ export default function Collection() {
   return (
     <CollectionContainer>
       <Typography variant="h1">Keyboard Collection</Typography>
-      <p>Below is my personal collection of computer keyboards (primarily in HHKB-inspired layouts) and accompanying keysets. I stream my build process to <LinkBlank to={social.twitch}>Twitch</LinkBlank>.</p>
+      <p>Below is my personal collection of computer keyboards (primarily in HHKB-inspired layouts) and accompanying keysets and switches. I stream my build process to <LinkBlank to={social.twitch}>Twitch</LinkBlank>.</p>
+      <p><i>Last updated: {collectionUpdated}</i></p>
       <Tabs
         classes={{
           root: 'collectionTabsRoot',
@@ -48,7 +54,7 @@ export default function Collection() {
         onChange={handleSectionChange}
         value={tab}
       >
-        {['Keyboards', 'Keysets'].map((y, i) => (
+        {['Keyboards', 'Keysets', 'Switches'].map((y, i) => (
           <Tab
             classes={{
               root: classnames({
@@ -64,6 +70,7 @@ export default function Collection() {
       <>
         {0 === tab && <Builds />}
         {1 === tab && <Keysets />}
+        {2 === tab && <Switches />}
       </>
     </CollectionContainer>
   )

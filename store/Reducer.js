@@ -48,6 +48,30 @@ const Reducer = (state, action) => {
         keysetDesc: action.payload
       }
     }
+    case 'SET_SWITCHES': {
+      return {
+        ...state,
+        switches: action.payload
+      }
+    }
+    case 'SET_SWITCHESSORT': {
+      return {
+        ...state,
+        switchesSort: action.payload
+      }
+    }
+    case 'SET_SWITCHESDESC': {
+      return {
+        ...state,
+        switchesDesc: action.payload
+      }
+    }
+    case 'SET_COLLECTIONUPDATED': {
+      return {
+        ...state,
+        collectionUpdated: action.payload
+      }
+    }
     case 'SET_LINKS': {
       return {
         ...state,
