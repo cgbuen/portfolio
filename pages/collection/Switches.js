@@ -1,4 +1,5 @@
 import { useContext, useEffect, useState } from 'react'
+import { withRouter } from 'next/router'
 import Context from 'store/context'
 import classnames from 'classnames'
 import styled from 'styled-components'
@@ -11,12 +12,20 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { createOptimizedSrc } from 'helpers/imageService'
 
-export default function Switches() {
+const mountTypes = {
+  IR: 'i-Rocks',
+  AL: 'Alps',
+  BS: 'Buckling spring',
+  HE: 'Hall effect'
+}
+
+function Switches({ router }) {
   const { globalState, globalDispatch } = useContext(Context)
   const { switches, switchesSort, switchesDesc } = globalState
+  const [readySortedOnce, setReadySortedOnce] = useState(false)
 
   const sortSwitches = sort => {
-    if (switchesSort === sort) {
+    if (switchesSort === sort && !(router.query.switch_mount_status === 'ready' && sort === 'mount_status' && !readySortedOnce)) {
       globalDispatch({ type: 'SET_SWITCHES', payload: switches.reverse() })
       globalDispatch({ type: 'SET_SWITCHESDESC', payload: !switchesDesc })
     } else {
@@ -32,6 +41,7 @@ export default function Switches() {
       globalDispatch({ type: 'SET_SWITCHES', payload: sorted })
       globalDispatch({ type: 'SET_SWITCHESSORT', payload: sort })
       globalDispatch({ type: 'SET_SWITCHESDESC', payload: true })
+      setReadySortedOnce(true)
     }
   }
 
@@ -65,11 +75,11 @@ export default function Switches() {
             <TableRow key={x.id}>
               <TableCell>{x.name}</TableCell>
               <TableCell><DateDetail>{x.purchase_date}</DateDetail></TableCell>
-              <TableCell>{x.mount}</TableCell>
+              <TableCell>{mountTypes[x.mount] || x.mount}</TableCell>
               <TableCell>{x.switch_type}</TableCell>
               <TableCell>{x.mount_status}</TableCell>
               <TableCell>{x.keyboard}</TableCell>
-              <TableCell>{x.weight_springs}</TableCell>
+              <TableCell>{!['springswap', 'alps', 'matias', 'halleffect', 'buckling'].includes(x.weight_springs) && x.weight_springs}</TableCell>
             </TableRow>
           ))}
         </TableBody>
@@ -77,6 +87,8 @@ export default function Switches() {
     </StyledPaper>
   )
 }
+
+export default withRouter(Switches)
 
 const StyledPaper = styled(Paper)`
   background: #151515;
