@@ -7,9 +7,9 @@ import styled from 'styled-components'
 import Typography from '@mui/material/Typography'
 import Tabs from '@mui/material/Tabs'
 import Tab from '@mui/material/Tab'
-import Builds from './Builds'
-import Keysets from './Keysets'
-import Switches from './Switches'
+import BuildsTab from './BuildsTab'
+import KeysetsTab from './KeysetsTab'
+import SwitchesTab from './SwitchesTab'
 import LinkBlank from 'components/LinkBlank'
 
 function Collection({ router }) {
@@ -85,9 +85,9 @@ function Collection({ router }) {
         ))}
       </Tabs>
       <>
-        {0 === tab && <Builds />}
-        {1 === tab && <Keysets />}
-        {2 === tab && <Switches />}
+        {0 === tab && <BuildsTab />}
+        {1 === tab && <KeysetsTab />}
+        {2 === tab && <SwitchesTab />}
       </>
     </CollectionContainer>
   )
