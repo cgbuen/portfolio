@@ -38,11 +38,51 @@ export default function Builds() {
   const { globalState, globalDispatch } = useContext(Context)
   const { builds, buildFiltersActive } = globalState
 
+  const openDialog = useCallback((build) => {
+    if (!(build.src.includes('unavailable') || build.otw_link)) {
+      let variantVal = 0
+      if (build.assembly_variant !== 'A0') {
+        const variants = builds.filter(y => y.board_id === build.board_id).sort((x, y) => x.id - y.id)
+        variants.some((x, i) => {
+          if (x.assembly_variant === build.assembly_variant) {
+            variantVal = i
+            return true
+          }
+        })
+      }
+      setOpenBuild(build)
+      setVariantVal(variantVal)
+      setBuildDetailsOpen(false)
+      setDialogImg(build.src)
+    }
+  }, [builds])
+
+  const closeDialog = useCallback(() => {
+    setOpenBuild({})
+    setVariantVal(0)
+    setBuildDetailsOpen(false)
+    setDialogImg('')
+  }, [])
+
   const escListener = useCallback(e => {
     if (e.keyCode === 27) {
       return closeDialog()
     }
   }, [closeDialog])
+
+  const determineNewerBuild = useCallback(() => {
+    const activeBuilds = builds.filter(x => x.displayed && !x.src.includes('unavailable'))
+    const currentBuildIndex = activeBuilds.findIndex(x => x.id === openBuild.id)
+    const toOpenIndex = (activeBuilds.length + currentBuildIndex - 1) % activeBuilds.length
+    return activeBuilds[toOpenIndex]
+  }, [builds, openBuild.id])
+
+  const determineOlderBuild = useCallback(() => {
+    const activeBuilds = builds.filter(x => x.displayed && !x.src.includes('unavailable'))
+    const currentBuildIndex = activeBuilds.findIndex(x => x.id === openBuild.id)
+    const toOpenIndex = (activeBuilds.length + currentBuildIndex + 1) % activeBuilds.length
+    return activeBuilds[toOpenIndex]
+  }, [builds, openBuild.id])
 
   const arrowListener = useCallback(e => {
     window.removeEventListener('keyup', arrowListener)
@@ -79,20 +119,6 @@ export default function Builds() {
     }
     globalDispatch({ type: 'SET_BUILDFILTERSACTIVE', payload: updatedBuildFiltersActive })
   }
-
-  const determineNewerBuild = useCallback(() => {
-    const activeBuilds = builds.filter(x => x.displayed && !x.src.includes('unavailable'))
-    const currentBuildIndex = activeBuilds.findIndex(x => x.id === openBuild.id)
-    const toOpenIndex = (activeBuilds.length + currentBuildIndex - 1) % activeBuilds.length
-    return activeBuilds[toOpenIndex]
-  }, [builds, openBuild.id])
-
-  const determineOlderBuild = useCallback(() => {
-    const activeBuilds = builds.filter(x => x.displayed && !x.src.includes('unavailable'))
-    const currentBuildIndex = activeBuilds.findIndex(x => x.id === openBuild.id)
-    const toOpenIndex = (activeBuilds.length + currentBuildIndex + 1) % activeBuilds.length
-    return activeBuilds[toOpenIndex]
-  }, [builds, openBuild.id])
 
   const handleVariantChange = variants => {
     return (e, v) => {
@@ -234,32 +260,6 @@ export default function Builds() {
       </Filter>
     )
   }
-
-  const openDialog = useCallback((build) => {
-    if (!(build.src.includes('unavailable') || build.otw_link)) {
-      let variantVal = 0
-      if (build.assembly_variant !== 'A0') {
-        const variants = builds.filter(y => y.board_id === build.board_id).sort((x, y) => x.id - y.id)
-        variants.some((x, i) => {
-          if (x.assembly_variant === build.assembly_variant) {
-            variantVal = i
-            return true
-          }
-        })
-      }
-      setOpenBuild(build)
-      setVariantVal(variantVal)
-      setBuildDetailsOpen(false)
-      setDialogImg(build.src)
-    }
-  }, [builds])
-
-  const closeDialog = useCallback(() => {
-    setOpenBuild({})
-    setVariantVal(0)
-    setBuildDetailsOpen(false)
-    setDialogImg('')
-  }, [])
 
   const determineDate = (x) => {
     if (['TBD', 'N/A'].includes(x.date_built)) {

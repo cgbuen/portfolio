@@ -28,15 +28,15 @@ export default function Projects() {
     globalDispatch({ type: 'SET_LOADING', payload: false })
   }, [globalDispatch])
 
+  const closeDialog = useCallback(() => {
+    setModal({})
+  }, [])
+
   const escListener = useCallback(e => {
     if (e.keyCode === 27) {
       return closeDialog()
     }
-  }, [])
-
-  const closeDialog = () => {
-    setModal({})
-  }
+  }, [closeDialog])
 
   useEffect(() => {
     window.removeEventListener('keyup', escListener)

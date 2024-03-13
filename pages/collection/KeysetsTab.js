@@ -34,11 +34,36 @@ export default function Keysets() {
   const { globalState, globalDispatch } = useContext(Context)
   const { keysets, keysetSort, keysetDesc } = globalState
 
+  const openDialog = useCallback((keyset) => {
+    if (!keyset.src.includes('unavailable')) {
+      setOpenKeyset(keyset)
+    }
+  }, [])
+
+  const closeDialog = useCallback(() => {
+    setOpenKeyset({})
+    setKeysetDetailsOpen(false)
+  }, [])
+
   const escListener = useCallback(e => {
     if (e.keyCode === 27) {
       return closeDialog()
     }
   }, [closeDialog])
+
+  const determineNewerKeyset = useCallback(() => {
+    const activeKeysets = keysets.filter(x => x.mount_status != 'On the way' && !x.src.includes('unavailable'))
+    const currentKeysetIndex = activeKeysets.findIndex(x => x.id === openKeyset.id)
+    const toOpenIndex = (activeKeysets.length + currentKeysetIndex - 1) % activeKeysets.length
+    return activeKeysets[toOpenIndex]
+  }, [keysets, openKeyset.id])
+
+  const determineOlderKeyset = useCallback(() => {
+    const activeKeysets = keysets.filter(x => x.mount_status != 'On the way' && !x.src.includes('unavailable'))
+    const currentKeysetIndex = activeKeysets.findIndex(x => x.id === openKeyset.id)
+    const toOpenIndex = (activeKeysets.length + currentKeysetIndex + 1) % activeKeysets.length
+    return activeKeysets[toOpenIndex]
+  }, [keysets, openKeyset.id])
 
   const arrowListener = useCallback(e => {
     window.removeEventListener('keyup', arrowListener)
@@ -60,20 +85,6 @@ export default function Keysets() {
   useEffect(() => {
     window.addEventListener('keyup', arrowListener)
   }, [openKeyset, arrowListener])
-
-  const determineNewerKeyset = useCallback(() => {
-    const activeKeysets = keysets.filter(x => x.mount_status != 'On the way' && !x.src.includes('unavailable'))
-    const currentKeysetIndex = activeKeysets.findIndex(x => x.id === openKeyset.id)
-    const toOpenIndex = (activeKeysets.length + currentKeysetIndex - 1) % activeKeysets.length
-    return activeKeysets[toOpenIndex]
-  }, [keysets, openKeyset.id])
-
-  const determineOlderKeyset = useCallback(() => {
-    const activeKeysets = keysets.filter(x => x.mount_status != 'On the way' && !x.src.includes('unavailable'))
-    const currentKeysetIndex = activeKeysets.findIndex(x => x.id === openKeyset.id)
-    const toOpenIndex = (activeKeysets.length + currentKeysetIndex + 1) % activeKeysets.length
-    return activeKeysets[toOpenIndex]
-  }, [keysets, openKeyset.id])
 
   const sortKeysets = sort => {
     if (keysetSort === sort) {
@@ -111,17 +122,6 @@ export default function Keysets() {
       setKeysetDetailsOpen(val)
     }
   }
-
-  const openDialog = useCallback((keyset) => {
-    if (!keyset.src.includes('unavailable')) {
-      setOpenKeyset(keyset)
-    }
-  }, [])
-
-  const closeDialog = useCallback(() => {
-    setOpenKeyset({})
-    setKeysetDetailsOpen(false)
-  }, [])
 
   const renderDetailKeyboard = (x) => {
     if (x.keyboard) {
