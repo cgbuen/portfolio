@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react'
+import { useContext, useEffect, useState, useCallback } from 'react'
 import Context from 'store/context'
 import classnames from 'classnames'
 import styled from 'styled-components'
@@ -34,13 +34,13 @@ export default function Keysets() {
   const { globalState, globalDispatch } = useContext(Context)
   const { keysets, keysetSort, keysetDesc } = globalState
 
-  const escListener = e => {
+  const escListener = useCallback(e => {
     if (e.keyCode === 27) {
       return closeDialog()
     }
-  }
+  }, [closeDialog])
 
-  const arrowListener = e => {
+  const arrowListener = useCallback(e => {
     window.removeEventListener('keyup', arrowListener)
     if (openKeyset.id) {
       if (e.keyCode === 37) { // newer
@@ -50,7 +50,7 @@ export default function Keysets() {
         openDialog(determineOlderKeyset())
       }
     }
-  }
+  }, [determineNewerKeyset, determineOlderKeyset, openKeyset.id, openDialog])
 
   useEffect(() => {
     window.removeEventListener('keyup', escListener)
@@ -61,19 +61,19 @@ export default function Keysets() {
     window.addEventListener('keyup', arrowListener)
   }, [openKeyset, arrowListener])
 
-  const determineNewerKeyset = () => {
+  const determineNewerKeyset = useCallback(() => {
     const activeKeysets = keysets.filter(x => x.mount_status != 'On the way' && !x.src.includes('unavailable'))
     const currentKeysetIndex = activeKeysets.findIndex(x => x.id === openKeyset.id)
     const toOpenIndex = (activeKeysets.length + currentKeysetIndex - 1) % activeKeysets.length
     return activeKeysets[toOpenIndex]
-  }
+  }, [keysets, openKeyset.id])
 
-  const determineOlderKeyset = () => {
+  const determineOlderKeyset = useCallback(() => {
     const activeKeysets = keysets.filter(x => x.mount_status != 'On the way' && !x.src.includes('unavailable'))
     const currentKeysetIndex = activeKeysets.findIndex(x => x.id === openKeyset.id)
     const toOpenIndex = (activeKeysets.length + currentKeysetIndex + 1) % activeKeysets.length
     return activeKeysets[toOpenIndex]
-  }
+  }, [keysets, openKeyset.id])
 
   const sortKeysets = sort => {
     if (keysetSort === sort) {
@@ -112,16 +112,16 @@ export default function Keysets() {
     }
   }
 
-  const openDialog = (keyset) => {
+  const openDialog = useCallback((keyset) => {
     if (!keyset.src.includes('unavailable')) {
       setOpenKeyset(keyset)
     }
-  }
+  }, [])
 
-  const closeDialog = () => {
+  const closeDialog = useCallback(() => {
     setOpenKeyset({})
     setKeysetDetailsOpen(false)
-  }
+  }, [])
 
   const renderDetailKeyboard = (x) => {
     if (x.keyboard) {

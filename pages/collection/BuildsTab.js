@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react'
+import { useContext, useEffect, useState, useCallback } from 'react'
 import Context from 'store/context'
 import styled from 'styled-components'
 import classnames from 'classnames'
@@ -38,13 +38,13 @@ export default function Builds() {
   const { globalState, globalDispatch } = useContext(Context)
   const { builds, buildFiltersActive } = globalState
 
-  const escListener = e => {
+  const escListener = useCallback(e => {
     if (e.keyCode === 27) {
       return closeDialog()
     }
-  }
+  }, [closeDialog])
 
-  const arrowListener = e => {
+  const arrowListener = useCallback(e => {
     window.removeEventListener('keyup', arrowListener)
     if (openBuild.id) {
       if (e.keyCode === 37) { // newer
@@ -54,7 +54,7 @@ export default function Builds() {
         openDialog(determineOlderBuild())
       }
     }
-  }
+  }, [determineNewerBuild, determineOlderBuild, openBuild.id, openDialog])
 
   useEffect(() => {
     window.removeEventListener('keyup', escListener)
@@ -80,19 +80,19 @@ export default function Builds() {
     globalDispatch({ type: 'SET_BUILDFILTERSACTIVE', payload: updatedBuildFiltersActive })
   }
 
-  const determineNewerBuild = () => {
+  const determineNewerBuild = useCallback(() => {
     const activeBuilds = builds.filter(x => x.displayed && !x.src.includes('unavailable'))
     const currentBuildIndex = activeBuilds.findIndex(x => x.id === openBuild.id)
     const toOpenIndex = (activeBuilds.length + currentBuildIndex - 1) % activeBuilds.length
     return activeBuilds[toOpenIndex]
-  }
+  }, [builds, openBuild.id])
 
-  const determineOlderBuild = () => {
+  const determineOlderBuild = useCallback(() => {
     const activeBuilds = builds.filter(x => x.displayed && !x.src.includes('unavailable'))
     const currentBuildIndex = activeBuilds.findIndex(x => x.id === openBuild.id)
     const toOpenIndex = (activeBuilds.length + currentBuildIndex + 1) % activeBuilds.length
     return activeBuilds[toOpenIndex]
-  }
+  }, [builds, openBuild.id])
 
   const handleVariantChange = variants => {
     return (e, v) => {
@@ -235,7 +235,7 @@ export default function Builds() {
     )
   }
 
-  const openDialog = (build) => {
+  const openDialog = useCallback((build) => {
     if (!(build.src.includes('unavailable') || build.otw_link)) {
       let variantVal = 0
       if (build.assembly_variant !== 'A0') {
@@ -252,14 +252,14 @@ export default function Builds() {
       setBuildDetailsOpen(false)
       setDialogImg(build.src)
     }
-  }
+  }, [builds])
 
-  const closeDialog = () => {
+  const closeDialog = useCallback(() => {
     setOpenBuild({})
     setVariantVal(0)
     setBuildDetailsOpen(false)
     setDialogImg('')
-  }
+  }, [])
 
   const determineDate = (x) => {
     if (['TBD', 'N/A'].includes(x.date_built)) {

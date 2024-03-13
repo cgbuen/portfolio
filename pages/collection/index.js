@@ -50,7 +50,7 @@ function Collection({ router }) {
       keyset_mount_status: router.query.tab === '1' && router.query.keyset_mount_status,
       switch_mount_status: router.query.tab === '2' && router.query.switch_mount_status
     })
-  }, [getCollection, setTab])
+  }, [getCollection, setTab, router.query.keyset_mount_status, router.query.switch_mount_status, router.query.tab])
 
   const handleSectionChange = (e, v) => {
     setTab(v)

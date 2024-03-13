@@ -28,11 +28,11 @@ export default function Projects() {
     globalDispatch({ type: 'SET_LOADING', payload: false })
   }, [globalDispatch])
 
-  const escListener = e => {
+  const escListener = useCallback(e => {
     if (e.keyCode === 27) {
       return closeDialog()
     }
-  }
+  }, [])
 
   const closeDialog = () => {
     setModal({})
