@@ -168,7 +168,7 @@ export default function Keysets() {
             {renderSortCell('category', 'Category')}
             {renderSortCell('mount_status', 'Status')}
             {renderSortCell('keyboard', 'Keyboard')}
-            {renderSortCell('lq', 'Sublegend', 'Quality')}
+            {renderSortCell('lq', 'Legend', 'Quality')}
           </StyledTableHeaderRow>
         </TableHead>
         <TableBody>
