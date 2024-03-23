@@ -2,15 +2,14 @@ import { useContext, useEffect, useState, useCallback } from 'react'
 import Context from 'store/context'
 import classnames from 'classnames'
 import styled from 'styled-components'
-import Typography from '@mui/material/Typography'
 import Dialog from '@mui/material/Dialog'
 import DialogContent from '@mui/material/DialogContent'
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
+import Table from '@mui/material/Table'
+import TableBody from '@mui/material/TableBody'
+import TableCell from '@mui/material/TableCell'
+import TableHead from '@mui/material/TableHead'
+import TableRow from '@mui/material/TableRow'
+import { StyledTableCell, ListImg, HeaderText, DateDetail, StyledPaper, StyledTableHeaderRow } from 'components/TableHelpers'
 import {
   DialogClose,
   DialogTitle,
@@ -106,13 +105,14 @@ export default function Keysets() {
     }
   }
 
-  const renderSortCell = (sortField, displayName) => {
+  const renderSortCell = (sortField, displayName1, displayName2) => {
     return (
       <TableCell className={classnames({
           sorted: keysetSort === sortField,
           reversed: !keysetDesc,
       })} onClick={() => sortKeysets(sortField)}>
-        <HeaderText>{displayName}</HeaderText>
+        <HeaderText>{displayName1}</HeaderText>
+        {displayName2 && <><br /><HeaderText>{displayName2}</HeaderText></>}
       </TableCell>
     )
   }
@@ -151,6 +151,8 @@ export default function Keysets() {
     )
   }
 
+  const legendQuality = [, 'Low', 'Acceptable', 'High']
+
   return (
     <StyledPaper>
       <Table>
@@ -158,23 +160,25 @@ export default function Keysets() {
           <StyledTableHeaderRow>
             <TableCell></TableCell>
             {renderSortCell('keyset', 'Name')}
-            {renderSortCell('purchase_date', 'Purchased')}
-            {renderSortCell('mount', 'Mount')}
+            {renderSortCell('purchase_date', 'Date')}
+            {renderSortCell('mount', 'Type')}
             {renderSortCell('category', 'Category')}
             {renderSortCell('mount_status', 'Status')}
             {renderSortCell('keyboard', 'Keyboard')}
+            {renderSortCell('s_accuracy', 'Legend', 'Quality')}
           </StyledTableHeaderRow>
         </TableHead>
         <TableBody>
           {keysets.map(x => (
             <TableRow key={x.id} className={x.src.includes('unavailable') ? '' : 'clickable'} onClick={() => openDialog(x)}>
-              <TableCell>{<KeysetImg src={createOptimizedSrc(x.src, { quality: 90, width: 200 })} alt={x.keyset} width="100" />}</TableCell>
+              <TableCell>{<ListImg src={createOptimizedSrc(x.src, { quality: 90, width: 200 })} alt={x.keyset} width="100" />}</TableCell>
               <TableCell>{x.keyset}</TableCell>
               <TableCell><DateDetail>{x.purchase_date}</DateDetail></TableCell>
-              <TableCell>{x.mount}</TableCell>
+              <StyledTableCell>{x.mount}</StyledTableCell>
               <TableCell>{x.category}</TableCell>
               <TableCell>{x.mount_status}</TableCell>
               <TableCell>{x.keyboard}</TableCell>
+              <TableCell>{legendQuality[x.lq]}</TableCell>
             </TableRow>
           ))}
         </TableBody>
@@ -209,52 +213,3 @@ export default function Keysets() {
     </StyledPaper>
   )
 }
-
-const StyledPaper = styled(Paper)`
-  background: #151515;
-  box-shadow: none;
-  overflow-x: auto;
-  padding: 0 10px;
-  margin: 0 10px;
-  .light-mode & {
-    background: white;
-  }
-`
-const StyledTableHeaderRow = styled(TableRow)`
-  height: auto;
-  th {
-    padding-top: 0;
-    padding-bottom: 12px;
-    white-space: nowrap;
-  }
-  .sorted {
-    &:after {
-      content: '';
-      width: 0;
-      height: 0;
-      display: inline-block;
-      border-left: 5px solid transparent;
-      border-right: 5px solid transparent;
-      border-top: 5px solid white;
-      margin-left: 5px;
-    }
-  }
-  .reversed {
-    &:after {
-      border-bottom: 5px solid white;
-      border-top: 0;
-    }
-  }
-`
-const HeaderText = styled.span`
-  cursor: pointer;
-  font-weight: bold;
-  vertical-align: middle;
-`
-const KeysetImg = styled.img`
-  display: block;
-  width: 100px;
-`
-const DateDetail = styled.span`
-  white-space: nowrap;
-`

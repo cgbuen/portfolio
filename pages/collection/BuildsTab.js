@@ -4,10 +4,18 @@ import styled from 'styled-components'
 import classnames from 'classnames'
 import Tabs from '@mui/material/Tabs'
 import Tab from '@mui/material/Tab'
+import Table from '@mui/material/Table'
+import TableBody from '@mui/material/TableBody'
+import TableCell from '@mui/material/TableCell'
+import TableHead from '@mui/material/TableHead'
+import TableRow from '@mui/material/TableRow'
+import { ListImg, DateDetail, StyledTableCell, StyledTableHeaderRow, StyledTableHeaderCell } from 'components/TableHelpers'
 import Dialog from '@mui/material/Dialog'
 import DialogContent from '@mui/material/DialogContent'
 import LinkBlank from 'components/LinkBlank'
 import GridSquare from './GridSquare'
+import GridViewIcon from '@mui/icons-material/GridView'
+import ListViewIcon from '@mui/icons-material/ViewList'
 import CheckBoxSharpIcon from '@mui/icons-material/CheckBoxSharp'
 import InstagramIcon from '../../public/assets/instagram.svg'
 import BuildIcon from '@mui/icons-material/Build'
@@ -29,7 +37,7 @@ import {
 import { createOptimizedSrc } from 'helpers/imageService'
 
 export default function Builds() {
-  const [tab, setTab] = useState(0)
+  const [gridView, setGridView] = useState(true)
   const [openBuild, setOpenBuild] = useState({})
   const [variantVal, setVariantVal] = useState(0)
   const [buildDetailsOpen, setBuildDetailsOpen] = useState(false)
@@ -71,14 +79,14 @@ export default function Builds() {
   }, [closeDialog])
 
   const determineNewerBuild = useCallback(() => {
-    const activeBuilds = builds.filter(x => x.displayed && !x.src.includes('unavailable'))
+    const activeBuilds = builds.filter(x => x.displayed && !x.src.includes('unavailable') && x.build_status !== 'On the way')
     const currentBuildIndex = activeBuilds.findIndex(x => x.id === openBuild.id)
     const toOpenIndex = (activeBuilds.length + currentBuildIndex - 1) % activeBuilds.length
     return activeBuilds[toOpenIndex]
   }, [builds, openBuild.id])
 
   const determineOlderBuild = useCallback(() => {
-    const activeBuilds = builds.filter(x => x.displayed && !x.src.includes('unavailable'))
+    const activeBuilds = builds.filter(x => x.displayed && !x.src.includes('unavailable') && x.build_status !== 'On the way')
     const currentBuildIndex = activeBuilds.findIndex(x => x.id === openBuild.id)
     const toOpenIndex = (activeBuilds.length + currentBuildIndex + 1) % activeBuilds.length
     return activeBuilds[toOpenIndex]
@@ -130,6 +138,12 @@ export default function Builds() {
   const handleBuildDetailsOpen = (val) => {
     return () => {
       setBuildDetailsOpen(val)
+    }
+  }
+
+  const handleViewClick = (val) => {
+    return () => {
+      setGridView(val)
     }
   }
 
@@ -273,6 +287,66 @@ export default function Builds() {
     }
   }
 
+  const renderGrid = (builds) => (
+    <ContentContainer>
+      {builds
+        .map(x => {
+          return x.loaded && (
+            <GridSquare
+              className={classnames(!x.displayed && 'hide', !(x.src.includes('unavailable') || x.otw_link) && 'clickable')}
+              key={x.id}
+              name={x.name}
+              description={determineDate(x)}
+              src={createOptimizedSrc(x.src, { quality: 80, width: 555 })}
+              onClick={() => openDialog(x)}
+            />
+          )
+        })
+      }
+      {builds.filter(x => x.displayed).length % 3 === 2 && (<PlaceholderBox></PlaceholderBox>)}
+      {builds.filter(x => x.displayed).length % 3 === 1 && (<><PlaceholderBox></PlaceholderBox><PlaceholderBox></PlaceholderBox></>)}
+      {builds.filter(x => x.displayed).length === 0 && <NoResults>Select a filter above to see results.</NoResults>}
+    </ContentContainer>
+  )
+
+  const renderTable = (builds) => (
+    <ContentContainer>
+      {builds.filter(x => x.displayed).length === 0
+        ? (<NoResults>Select a filter above to see results.</NoResults>)
+        : (
+            <Table>
+              <TableHead>
+                <StyledTableHeaderRow>
+                  <TableCell></TableCell>
+                  <StyledTableHeaderCell>Name</StyledTableHeaderCell>
+                  <StyledTableHeaderCell>Type</StyledTableHeaderCell>
+                  <StyledTableHeaderCell>Builds</StyledTableHeaderCell>
+                  <StyledTableHeaderCell>Last built</StyledTableHeaderCell>
+                  <StyledTableHeaderCell>Plate</StyledTableHeaderCell>
+                  <StyledTableHeaderCell>Switches</StyledTableHeaderCell>
+                  <StyledTableHeaderCell>Keycaps</StyledTableHeaderCell>
+                </StyledTableHeaderRow>
+              </TableHead>
+              <TableBody>
+                {builds.map(x => x.loaded && (
+                  <TableRow key={x.id} className={classnames(!x.displayed && 'hide', !(x.src.includes('unavailable') || x.otw_link) && 'clickable')} onClick={() => openDialog(x)}>
+                    <TableCell>{<ListImg src={createOptimizedSrc(x.src, { quality: 90, width: 200 })} alt={x.name} width="100" />}</TableCell>
+                    <TableCell>{x.name}</TableCell>
+                    <StyledTableCell>{x.type}</StyledTableCell>
+                    <StyledTableCell>{builds.filter(y => y.board_id === x.board_id).length}</StyledTableCell>
+                    <TableCell><DateDetail>{x.date_built_latest}</DateDetail></TableCell>
+                    <TableCell>{x.plate}</TableCell>
+                    <TableCell>{x.switches}</TableCell>
+                    <TableCell>{x.keycaps}</TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          )
+      }
+    </ContentContainer>
+  )
+
   return (
     <>
       <TopSection>
@@ -280,34 +354,19 @@ export default function Builds() {
           <FiltersLabel>Filters: </FiltersLabel>
           <FiltersOnlyContainer>
             {
-              ['Built', 'Prebuilt', 'Vintage', 'Unbuilt', 'On the way']
+              ['Built', 'Unbuilt', 'On the way']
                 .filter(x => builds.filter(y => y.build_status === x && y.assembly_variant.includes('A')).length > 0)
                 .map(x => renderFilter({ id: x, name: x }))
             }
           </FiltersOnlyContainer>
         </FiltersWhole>
+        <ViewOptions>
+          <GridViewIcon className={gridView ? 'active' : ''} onClick={handleViewClick(true)} />
+          <ListViewIcon className={gridView ? '' : 'active'} onClick={handleViewClick(false)} />
+        </ViewOptions>
         <Results>{builds.filter(x => x.displayed).length} Results</Results>
       </TopSection>
-      <CardContainer>
-        {builds
-          .map(x => {
-            let src = x.src
-            return x.loaded && (
-              <GridSquare
-                className={classnames(!x.displayed && 'hide', !(x.src.includes('unavailable') || x.otw_link) && 'clickable')}
-                key={x.id}
-                name={x.name}
-                description={determineDate(x)}
-                src={createOptimizedSrc(src, { quality: 80, width: 555 })}
-                onClick={() => openDialog(x)}
-              />
-            )
-          })
-        }
-        {builds.filter(x => x.displayed).length % 3 === 2 && (<PlaceholderBox></PlaceholderBox>)}
-        {builds.filter(x => x.displayed).length % 3 === 1 && (<><PlaceholderBox></PlaceholderBox><PlaceholderBox></PlaceholderBox></>)}
-        {builds.filter(x => x.displayed).length === 0 && <NoResults>Select a filter above to see results.</NoResults>}
-      </CardContainer>
+      {gridView ? renderGrid(builds) : renderTable(builds)}
       <Dialog maxWidth="xl" open={!!openBuild.name}>
         <DialogTitle>
           {openBuild &&
@@ -340,10 +399,36 @@ export default function Builds() {
 }
 
 const TopSection = styled.div`
+  align-items: center;
   display: flex;
   justify-content: space-between;
   @media (max-width:568px) {
     display: block;
+  }
+`
+const ViewOptions = styled.div`
+  align-items: center;
+  display: flex;
+  flex: 1;
+  justify-content: end;
+  padding: 5px 10px 15px 0;
+  @media (max-width:925px) {
+    display: none;
+  }
+  svg {
+    cursor: pointer;
+    opacity: 0.5;
+    width: 24px;
+    transition: opacity .2s ease;
+    &:hover {
+      opacity: .75;
+    }
+  }
+  .active {
+    opacity: 1;
+    &:hover {
+      opacity: 1;
+    }
   }
 `
 const Results = styled.div`
@@ -418,7 +503,7 @@ const FilterText = styled.div`
   display: inline-block;
   vertical-align: middle;
 `
-const CardContainer = styled.div`
+const ContentContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;

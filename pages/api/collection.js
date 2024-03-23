@@ -35,10 +35,16 @@ export default async function handler(req, res) {
       keyset.src = `${ASSET_DOMAIN}/keyboards/${keyset.src}.jpg`
       return keyset
     })
+    .sort((x, y) => {
+      return x.purchase_date.localeCompare(y.purchase_date)
+    })
     .reverse()
   const switchesResponse = await responses[2].json()
   let switches = switchesResponse
     .filter(keyset => ['Tune', 'Ready', 'Mounted', 'Re-tune'].includes(keyset.mount_status))
+    .sort((x, y) => {
+      return x.purchase_date.localeCompare(y.purchase_date)
+    })
     .reverse()
   const dates = responses.map(x => new Date(x.headers.get('Last-Modified')).valueOf())
 
