@@ -91,6 +91,9 @@ export default function Keysets() {
       globalDispatch({ type: 'SET_KEYSETDESC', payload: !keysetDesc })
     } else {
       const sorted = keysets.sort((x, y) => {
+        if (typeof x[sort] === 'number') {
+          return y[sort] - x[sort]
+        }
         if (x[sort] === '') {
           return 1
         }
@@ -165,7 +168,7 @@ export default function Keysets() {
             {renderSortCell('category', 'Category')}
             {renderSortCell('mount_status', 'Status')}
             {renderSortCell('keyboard', 'Keyboard')}
-            {renderSortCell('s_accuracy', 'Legend', 'Quality')}
+            {renderSortCell('lq', 'Sublegend', 'Quality')}
           </StyledTableHeaderRow>
         </TableHead>
         <TableBody>
