@@ -50,7 +50,7 @@ export const theme = createTheme({
     MuiDialog: {
       styleOverrides: {
         root: {
-          zIndex: 1310,
+          zIndex: 999999,
         },
         paper: {
           background: '#151515',
