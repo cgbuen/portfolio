@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState, useCallback } from 'react'
 import Context from 'store/context'
-import classnames from 'classnames'
 import styled from 'styled-components'
+import classnames from 'classnames'
 import Dialog from '@mui/material/Dialog'
 import DialogContent from '@mui/material/DialogContent'
 import Table from '@mui/material/Table'
@@ -9,6 +9,8 @@ import TableBody from '@mui/material/TableBody'
 import TableCell from '@mui/material/TableCell'
 import TableHead from '@mui/material/TableHead'
 import TableRow from '@mui/material/TableRow'
+import Tooltip from '@mui/material/Tooltip'
+import HelpIcon from '@mui/icons-material/Help'
 import { StyledTableCell, ListImg, HeaderText, DateDetail, StyledPaper, StyledTableHeaderRow } from 'components/TableHelpers'
 import {
   DialogClose,
@@ -154,6 +156,16 @@ export default function Keysets() {
     )
   }
 
+  const renderHelp = (notes) => {
+    return (
+      <HelpContainer>
+        <Tooltip title={notes} placement="left">
+          <HelpIcon />
+        </Tooltip>
+      </HelpContainer>
+    )
+  }
+
   const legendQuality = [, 'Low', 'Acceptable', 'High']
 
   return (
@@ -181,7 +193,11 @@ export default function Keysets() {
               <TableCell>{x.category}</TableCell>
               <TableCell>{x.mount_status}</TableCell>
               <TableCell>{x.keyboard}</TableCell>
-              <TableCell>{legendQuality[x.lq]}</TableCell>
+              <NowrapTableCell>
+                <LegendQuality>{legendQuality[x.lq]}</LegendQuality>
+                &nbsp;
+                {x.lq && renderHelp(x.notes)}
+              </NowrapTableCell>
             </TableRow>
           ))}
         </TableBody>
@@ -216,3 +232,23 @@ export default function Keysets() {
     </StyledPaper>
   )
 }
+
+const HelpContainer = styled.div`
+  display: inline-block;
+  font-size: 0;
+  vertical-align: middle;
+  @media (max-width:925px) {
+    display: none;
+  }
+  svg {
+    width: 16px;
+  }
+`
+
+const LegendQuality = styled.span`
+  vertical-align: middle;
+`
+
+const NowrapTableCell = styled(TableCell)`
+  white-space: nowrap;
+`

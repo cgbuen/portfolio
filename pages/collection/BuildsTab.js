@@ -244,7 +244,7 @@ export default function Builds() {
         <DescriptionColumn>
           {options.variant && x.build_status !== 'Built' && <DescriptionDetail>(Unbuilt)</DescriptionDetail>}
           <DescriptionDetail>Purchased: {x.date_bought}</DescriptionDetail>
-          {showable(x.date_built) && <DescriptionDetail>{x.build_status === 'Built' ? 'Built' : 'Modified'}: {x.date_built} {showable(x.date_built_init) && x.date_built !== x.date_built_init ? `(initially ${x.date_built_init})` : ''}</DescriptionDetail>}
+          {showable(x.date_built) && <DescriptionDetail>Built: {x.date_built} {showable(x.date_built_init) && x.date_built !== x.date_built_init ? `(initially ${x.date_built_init})` : ''}</DescriptionDetail>}
           <DescriptionDetail>Color: {x.color}</DescriptionDetail>
           {showable(x.layout) && !['60% HHKB 7u', '60% HHKB 6u'].includes(x.layout) && <DescriptionDetail>Layout: {x.layout}</DescriptionDetail>}
           {showable(x.mount) && <DescriptionDetail>Mounting Style: {x.mount} {showable(x.pcb_thickness) && x.pcb_thickness !== '1.6mm' ? `(${x.pcb_thickness} PCB)` : ''}</DescriptionDetail>}
@@ -276,14 +276,10 @@ export default function Builds() {
   }
 
   const determineDate = (x) => {
-    if (['TBD', 'N/A'].includes(x.date_built)) {
-      return `Purchased ${x.date_bought}`
-    } else if (x.build_status === 'Built' && x.date_built === x.date_built_latest) {
+    if (x.build_status === 'Built') {
       return `Built ${x.date_built_latest}`
-    } else if (x.build_status === 'Built') {
-      return `Last built ${x.date_built_latest}`
     } else {
-      return `Modified ${x.date_built}`
+      return `Purchased ${x.date_bought}`
     }
   }
 
