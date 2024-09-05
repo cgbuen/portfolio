@@ -71,8 +71,10 @@ export default function Photography() {
     }
   }
 
-  const handleClick = (event, { index }) => {
-    setIndex(index)
+  const handleClick = (group) => {
+    return (event, { index }) => {
+      setIndex(index + group)
+    }
   }
 
   const Page = (
@@ -83,21 +85,21 @@ export default function Photography() {
         photos={photos.slice(0, 2)}
         direction={isMobile ? "column" : "row"}
         columns={columnsATF}
-        onClick={handleClick}
+        onClick={handleClick(0)}
         renderImage={isMobile ? imageRenderer() : undefined}
       />
       <Gallery
         photos={photos.slice(2, 7)}
         direction={isMobile ? "column" : "row"}
         columns={columnsATF}
-        onClick={handleClick}
+        onClick={handleClick(2)}
         renderImage={isMobile ? imageRenderer() : undefined}
       />
       <Gallery
         photos={photos.slice(7)}
         direction={"column"}
         columns={columnsBTF}
-        onClick={handleClick}
+        onClick={handleClick(7)}
         renderImage={isMobile ? imageRenderer() : undefined}
       />
     </>

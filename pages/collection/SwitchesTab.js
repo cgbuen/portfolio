@@ -1,22 +1,21 @@
 import { useContext, useEffect, useState } from 'react'
+import { withRouter } from 'next/router'
 import Context from 'store/context'
 import classnames from 'classnames'
-import styled from 'styled-components'
-import Typography from '@mui/material/Typography'
 import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
-import { createOptimizedSrc } from 'helpers/imageService'
+import TableBody from '@mui/material/TableBody'
+import TableCell from '@mui/material/TableCell'
+import TableHead from '@mui/material/TableHead'
+import TableRow from '@mui/material/TableRow'
+import { StyledTableCell, HeaderText, DateDetail, StyledPaper, StyledTableHeaderRow } from 'components/TableHelpers'
 
-export default function Switches() {
+function Switches({ router }) {
   const { globalState, globalDispatch } = useContext(Context)
   const { switches, switchesSort, switchesDesc } = globalState
+  const [readySortedOnce, setReadySortedOnce] = useState(false)
 
   const sortSwitches = sort => {
-    if (switchesSort === sort) {
+    if (switchesSort === sort && !(router.query.switch_mount_status === 'ready' && sort === 'mount_status' && !readySortedOnce)) {
       globalDispatch({ type: 'SET_SWITCHES', payload: switches.reverse() })
       globalDispatch({ type: 'SET_SWITCHESDESC', payload: !switchesDesc })
     } else {
@@ -32,6 +31,7 @@ export default function Switches() {
       globalDispatch({ type: 'SET_SWITCHES', payload: sorted })
       globalDispatch({ type: 'SET_SWITCHESSORT', payload: sort })
       globalDispatch({ type: 'SET_SWITCHESDESC', payload: true })
+      setReadySortedOnce(true)
     }
   }
 
@@ -65,11 +65,11 @@ export default function Switches() {
             <TableRow key={x.id}>
               <TableCell>{x.name}</TableCell>
               <TableCell><DateDetail>{x.purchase_date}</DateDetail></TableCell>
-              <TableCell>{x.mount}</TableCell>
+              <StyledTableCell>{x.mount}</StyledTableCell>
               <TableCell>{x.switch_type}</TableCell>
               <TableCell>{x.mount_status}</TableCell>
               <TableCell>{x.keyboard}</TableCell>
-              <TableCell>{x.weight_springs}</TableCell>
+              <TableCell>{!['springswap', 'alps', 'matias', 'halleffect', 'buckling'].includes(x.weight_springs) && x.weight_springs}</TableCell>
             </TableRow>
           ))}
         </TableBody>
@@ -78,47 +78,4 @@ export default function Switches() {
   )
 }
 
-const StyledPaper = styled(Paper)`
-  background: #151515;
-  box-shadow: none;
-  overflow-x: auto;
-  padding: 0 10px;
-  margin: 0 10px;
-  .light-mode & {
-    background: white;
-  }
-`
-const StyledTableHeaderRow = styled(TableRow)`
-  height: auto;
-  th {
-    padding-top: 0;
-    padding-bottom: 12px;
-    white-space: nowrap;
-  }
-  .sorted {
-    &:after {
-      content: '';
-      width: 0;
-      height: 0;
-      display: inline-block;
-      border-left: 5px solid transparent;
-      border-right: 5px solid transparent;
-      border-top: 5px solid white;
-      margin-left: 5px;
-    }
-  }
-  .reversed {
-    &:after {
-      border-bottom: 5px solid white;
-      border-top: 0;
-    }
-  }
-`
-const HeaderText = styled.span`
-  cursor: pointer;
-  font-weight: bold;
-  vertical-align: middle;
-`
-const DateDetail = styled.span`
-  white-space: nowrap;
-`
+export default withRouter(Switches)

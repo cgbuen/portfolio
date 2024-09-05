@@ -109,6 +109,9 @@ const GlobalStyles = createGlobalStyle`
     margin-bottom: 15px;
   }
 
+  .yarl__portal {
+    z-index: 999999;
+  }
   .yarl__container {
     background-color: rgba(0, 0, 0, .85) !important;
   }

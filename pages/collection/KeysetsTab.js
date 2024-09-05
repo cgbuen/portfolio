@@ -1,16 +1,17 @@
-import { useContext, useEffect, useState } from 'react'
+import { useContext, useEffect, useState, useCallback } from 'react'
 import Context from 'store/context'
-import classnames from 'classnames'
 import styled from 'styled-components'
-import Typography from '@mui/material/Typography'
+import classnames from 'classnames'
 import Dialog from '@mui/material/Dialog'
 import DialogContent from '@mui/material/DialogContent'
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
+import Table from '@mui/material/Table'
+import TableBody from '@mui/material/TableBody'
+import TableCell from '@mui/material/TableCell'
+import TableHead from '@mui/material/TableHead'
+import TableRow from '@mui/material/TableRow'
+import Tooltip from '@mui/material/Tooltip'
+import HelpIcon from '@mui/icons-material/Help'
+import { StyledTableCell, ListImg, HeaderText, DateDetail, StyledPaper, StyledTableHeaderRow } from 'components/TableHelpers'
 import {
   DialogClose,
   DialogTitle,
@@ -34,13 +35,38 @@ export default function Keysets() {
   const { globalState, globalDispatch } = useContext(Context)
   const { keysets, keysetSort, keysetDesc } = globalState
 
-  const escListener = e => {
+  const openDialog = useCallback((keyset) => {
+    if (!keyset.src.includes('unavailable')) {
+      setOpenKeyset(keyset)
+    }
+  }, [])
+
+  const closeDialog = useCallback(() => {
+    setOpenKeyset({})
+    setKeysetDetailsOpen(false)
+  }, [])
+
+  const escListener = useCallback(e => {
     if (e.keyCode === 27) {
       return closeDialog()
     }
-  }
+  }, [closeDialog])
 
-  const arrowListener = e => {
+  const determineNewerKeyset = useCallback(() => {
+    const activeKeysets = keysets.filter(x => x.mount_status != 'On the way' && !x.src.includes('unavailable'))
+    const currentKeysetIndex = activeKeysets.findIndex(x => x.id === openKeyset.id)
+    const toOpenIndex = (activeKeysets.length + currentKeysetIndex - 1) % activeKeysets.length
+    return activeKeysets[toOpenIndex]
+  }, [keysets, openKeyset.id])
+
+  const determineOlderKeyset = useCallback(() => {
+    const activeKeysets = keysets.filter(x => x.mount_status != 'On the way' && !x.src.includes('unavailable'))
+    const currentKeysetIndex = activeKeysets.findIndex(x => x.id === openKeyset.id)
+    const toOpenIndex = (activeKeysets.length + currentKeysetIndex + 1) % activeKeysets.length
+    return activeKeysets[toOpenIndex]
+  }, [keysets, openKeyset.id])
+
+  const arrowListener = useCallback(e => {
     window.removeEventListener('keyup', arrowListener)
     if (openKeyset.id) {
       if (e.keyCode === 37) { // newer
@@ -50,7 +76,7 @@ export default function Keysets() {
         openDialog(determineOlderKeyset())
       }
     }
-  }
+  }, [determineNewerKeyset, determineOlderKeyset, openKeyset.id, openDialog])
 
   useEffect(() => {
     window.removeEventListener('keyup', escListener)
@@ -61,26 +87,15 @@ export default function Keysets() {
     window.addEventListener('keyup', arrowListener)
   }, [openKeyset, arrowListener])
 
-  const determineNewerKeyset = () => {
-    const activeKeysets = keysets.filter(x => x.mount_status != 'On the way' && !x.src.includes('unavailable'))
-    const currentKeysetIndex = activeKeysets.findIndex(x => x.id === openKeyset.id)
-    const toOpenIndex = (activeKeysets.length + currentKeysetIndex - 1) % activeKeysets.length
-    return activeKeysets[toOpenIndex]
-  }
-
-  const determineOlderKeyset = () => {
-    const activeKeysets = keysets.filter(x => x.mount_status != 'On the way' && !x.src.includes('unavailable'))
-    const currentKeysetIndex = activeKeysets.findIndex(x => x.id === openKeyset.id)
-    const toOpenIndex = (activeKeysets.length + currentKeysetIndex + 1) % activeKeysets.length
-    return activeKeysets[toOpenIndex]
-  }
-
   const sortKeysets = sort => {
     if (keysetSort === sort) {
       globalDispatch({ type: 'SET_KEYSETS', payload: keysets.reverse() })
       globalDispatch({ type: 'SET_KEYSETDESC', payload: !keysetDesc })
     } else {
       const sorted = keysets.sort((x, y) => {
+        if (typeof x[sort] === 'number') {
+          return y[sort] - x[sort]
+        }
         if (x[sort] === '') {
           return 1
         }
@@ -95,13 +110,14 @@ export default function Keysets() {
     }
   }
 
-  const renderSortCell = (sortField, displayName) => {
+  const renderSortCell = (sortField, displayName1, displayName2) => {
     return (
       <TableCell className={classnames({
           sorted: keysetSort === sortField,
           reversed: !keysetDesc,
       })} onClick={() => sortKeysets(sortField)}>
-        <HeaderText>{displayName}</HeaderText>
+        <HeaderText>{displayName1}</HeaderText>
+        {displayName2 && <><br /><HeaderText>{displayName2}</HeaderText></>}
       </TableCell>
     )
   }
@@ -110,17 +126,6 @@ export default function Keysets() {
     return () => {
       setKeysetDetailsOpen(val)
     }
-  }
-
-  const openDialog = (keyset) => {
-    if (!keyset.src.includes('unavailable')) {
-      setOpenKeyset(keyset)
-    }
-  }
-
-  const closeDialog = () => {
-    setOpenKeyset({})
-    setKeysetDetailsOpen(false)
   }
 
   const renderDetailKeyboard = (x) => {
@@ -151,6 +156,18 @@ export default function Keysets() {
     )
   }
 
+  const renderHelp = (notes) => {
+    return (
+      <HelpContainer>
+        <Tooltip title={notes} placement="left">
+          <HelpIcon />
+        </Tooltip>
+      </HelpContainer>
+    )
+  }
+
+  const legendQuality = [, 'Low', 'Acceptable', 'High']
+
   return (
     <StyledPaper>
       <Table>
@@ -158,23 +175,29 @@ export default function Keysets() {
           <StyledTableHeaderRow>
             <TableCell></TableCell>
             {renderSortCell('keyset', 'Name')}
-            {renderSortCell('purchase_date', 'Purchased')}
-            {renderSortCell('mount', 'Mount')}
+            {renderSortCell('purchase_date', 'Date')}
+            {renderSortCell('mount', 'Type')}
             {renderSortCell('category', 'Category')}
             {renderSortCell('mount_status', 'Status')}
             {renderSortCell('keyboard', 'Keyboard')}
+            {renderSortCell('lq', 'Legend', 'Quality')}
           </StyledTableHeaderRow>
         </TableHead>
         <TableBody>
           {keysets.map(x => (
             <TableRow key={x.id} className={x.src.includes('unavailable') ? '' : 'clickable'} onClick={() => openDialog(x)}>
-              <TableCell>{<KeysetImg src={createOptimizedSrc(x.src, { quality: 90, width: 200 })} alt={x.keyset} width="100" />}</TableCell>
+              <TableCell>{<ListImg src={createOptimizedSrc(x.src, { quality: 90, width: 200 })} alt={x.keyset} width="100" />}</TableCell>
               <TableCell>{x.keyset}</TableCell>
               <TableCell><DateDetail>{x.purchase_date}</DateDetail></TableCell>
-              <TableCell>{x.mount}</TableCell>
+              <StyledTableCell>{x.mount}</StyledTableCell>
               <TableCell>{x.category}</TableCell>
               <TableCell>{x.mount_status}</TableCell>
               <TableCell>{x.keyboard}</TableCell>
+              <NowrapTableCell>
+                <LegendQuality>{legendQuality[x.lq]}</LegendQuality>
+                &nbsp;
+                {x.lq && renderHelp(x.notes)}
+              </NowrapTableCell>
             </TableRow>
           ))}
         </TableBody>
@@ -210,51 +233,22 @@ export default function Keysets() {
   )
 }
 
-const StyledPaper = styled(Paper)`
-  background: #151515;
-  box-shadow: none;
-  overflow-x: auto;
-  padding: 0 10px;
-  margin: 0 10px;
-  .light-mode & {
-    background: white;
+const HelpContainer = styled.div`
+  display: inline-block;
+  font-size: 0;
+  vertical-align: middle;
+  @media (max-width:925px) {
+    display: none;
+  }
+  svg {
+    width: 16px;
   }
 `
-const StyledTableHeaderRow = styled(TableRow)`
-  height: auto;
-  th {
-    padding-top: 0;
-    padding-bottom: 12px;
-    white-space: nowrap;
-  }
-  .sorted {
-    &:after {
-      content: '';
-      width: 0;
-      height: 0;
-      display: inline-block;
-      border-left: 5px solid transparent;
-      border-right: 5px solid transparent;
-      border-top: 5px solid white;
-      margin-left: 5px;
-    }
-  }
-  .reversed {
-    &:after {
-      border-bottom: 5px solid white;
-      border-top: 0;
-    }
-  }
-`
-const HeaderText = styled.span`
-  cursor: pointer;
-  font-weight: bold;
+
+const LegendQuality = styled.span`
   vertical-align: middle;
 `
-const KeysetImg = styled.img`
-  display: block;
-  width: 100px;
-`
-const DateDetail = styled.span`
+
+const NowrapTableCell = styled(TableCell)`
   white-space: nowrap;
 `

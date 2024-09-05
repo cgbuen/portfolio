@@ -25,7 +25,7 @@ const initialState = {
     github: 'https://github.com/cgbuen',
     youtubeM: 'https://www.youtube.com/@cornerblockers',
     youtubeV: 'https://www.youtube.com/@cgbuenVODs',
-    discordP: 'cgbuen#5518',
+    discordP: 'cgbuen',
     discordS: 'https://discord.gg/EayZKHK',
     sffb: 'https://us-p2p.netdonor.net/1803/general/61375/cgbuen',
   },

@@ -29,24 +29,47 @@ export default async function handler(req, res) {
     })
     .reverse()
   const keysetsResponse = await responses[1].json()
-  const keysets = keysetsResponse
+  let keysets = keysetsResponse
     .filter(keyset => ['Mounted', 'Unused'].includes(keyset.mount_status))
     .map(keyset => {
       keyset.src = `${ASSET_DOMAIN}/keyboards/${keyset.src}.jpg`
       return keyset
     })
+    .sort((x, y) => {
+      return x.purchase_date.localeCompare(y.purchase_date)
+    })
     .reverse()
   const switchesResponse = await responses[2].json()
-  const switches = switchesResponse
+  let switches = switchesResponse
     .filter(keyset => ['Tune', 'Ready', 'Mounted', 'Re-tune'].includes(keyset.mount_status))
+    .sort((x, y) => {
+      return x.purchase_date.localeCompare(y.purchase_date)
+    })
     .reverse()
-  console.log(new Date(responses[2].headers.get('Last-Modified')).valueOf())
   const dates = responses.map(x => new Date(x.headers.get('Last-Modified')).valueOf())
+
+  if (req.query.keyset_mount_status === 'unused') {
+    keysets = [...keysets].reverse().sort((x, y) => {
+      return x.mount_status === 'Unused' ? -1 : 1
+    })
+  }
+  if (req.query.switch_mount_status === 'ready') {
+    switches = [...switches].reverse().sort((x, y) => {
+      return x.mount_status === 'Ready' ? -1 : 1
+    })
+  }
+  if (req.query.switch_mount_status === 'tunable') {
+    switches = [...switches].reverse().sort((x, y) => {
+      return ['Tune', 'Re-tune'].includes(x.mount_status) ? -1 : 1
+    })
+  }
+
   const finalResponse = {
     builds,
     keysets,
     switches,
     date: new Date(dates.reduce((a, b) => Math.max(a, b), -Infinity)).toLocaleString()
   }
+
   res.status(200).json(finalResponse)
 }
