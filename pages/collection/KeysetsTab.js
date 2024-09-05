@@ -148,7 +148,6 @@ export default function Keysets() {
           <DescriptionDetail>Mount: {x.mount}</DescriptionDetail>
           <DescriptionDetail>Color: {x.color}</DescriptionDetail>
           <DescriptionDetail>Status: {x.mount_status}</DescriptionDetail>
-          <DescriptionDetail>HHKB?: {x.tkl_only ? 'No' : 'Yes'}</DescriptionDetail>
           {renderDetailKeyboard(x)}
           {x.notes && <DescriptionDetail>Notes: {x.notes}</DescriptionDetail>}
         </DescriptionColumn>
@@ -177,22 +176,24 @@ export default function Keysets() {
             {renderSortCell('keyset', 'Name')}
             {renderSortCell('purchase_date', 'Date')}
             {renderSortCell('mount', 'Type')}
-            {renderSortCell('category', 'Category')}
             {renderSortCell('mount_status', 'Status')}
             {renderSortCell('keyboard', 'Keyboard')}
+            {renderSortCell('u6_center', '6UC')}
+            {renderSortCell('u6_off', '6UO')}
             {renderSortCell('lq', 'Legend', 'Quality')}
           </StyledTableHeaderRow>
         </TableHead>
         <TableBody>
           {keysets.map(x => (
             <TableRow key={x.id} className={x.src.includes('unavailable') ? '' : 'clickable'} onClick={() => openDialog(x)}>
-              <TableCell>{<ListImg src={createOptimizedSrc(x.src, { quality: 90, width: 200 })} alt={x.keyset} width="100" />}</TableCell>
+              <TableCell>{<ListImg src={createOptimizedSrc(x.src, { quality: 90, width: 200 })} alt={x.keyset} width="100" height="66.49" />}</TableCell>
               <TableCell>{x.keyset}</TableCell>
               <TableCell><DateDetail>{x.purchase_date}</DateDetail></TableCell>
               <StyledTableCell>{x.mount}</StyledTableCell>
-              <TableCell>{x.category}</TableCell>
               <TableCell>{x.mount_status}</TableCell>
               <TableCell>{x.keyboard}</TableCell>
+              <TableCell>{x.u6_center}</TableCell>
+              <TableCell>{x.u6_off}</TableCell>
               <NowrapTableCell>
                 <LegendQuality>{legendQuality[x.lq]}</LegendQuality>
                 &nbsp;
@@ -218,7 +219,7 @@ export default function Keysets() {
         </DialogTitle>
         <DialogContent>
           <DialogImgWrapper>
-            <ModalImg alt={openKeyset.name} src={openKeyset && openKeyset.src && createOptimizedSrc(openKeyset.src, { quality: 90 })} width="1080" />
+            <ModalImg alt={openKeyset.name} src={openKeyset && openKeyset.src} width="1080" height="720" />
             {
               keysetDetailsOpen && (
                 <DescriptionBox>

@@ -326,7 +326,7 @@ export default function Builds() {
               <TableBody>
                 {builds.map(x => x.loaded && (
                   <TableRow key={x.id} className={classnames(!x.displayed && 'hide', !(x.src.includes('unavailable') || x.otw_link) && 'clickable')} onClick={() => openDialog(x)}>
-                    <TableCell>{<ListImg src={createOptimizedSrc(x.src, { quality: 90, width: 200 })} alt={x.name} width="100" />}</TableCell>
+                    <TableCell>{<ListImg src={createOptimizedSrc(x.src, { quality: 90, width: 200 })} alt={x.name} width="100" height="66.49" />}</TableCell>
                     <TableCell>{x.name}</TableCell>
                     <StyledTableCell>{x.type}</StyledTableCell>
                     <StyledTableCell>{builds.filter(y => y.board_id === x.board_id).length}</StyledTableCell>
@@ -379,7 +379,7 @@ export default function Builds() {
         </DialogTitle>
         <DialogContent>
           <DialogImgWrapper>
-            <ModalImg alt={openBuild.name} src={dialogImg && createOptimizedSrc(dialogImg, { quality: 90 })} width="1080" />
+            <ModalImg alt={openBuild.name} src={dialogImg} width="1080" height="720" />
             {
               buildDetailsOpen && (
                 <DescriptionBoxWithBuilds>

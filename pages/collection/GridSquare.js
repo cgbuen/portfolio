@@ -10,7 +10,7 @@ export default class GridSquare extends Component {
         <Card>
           <CardBody>
             <CardFigure>
-              <CardImg src={src} alt={name} width="250" />
+              <CardImg src={src} alt={name} width="250" height="166.66" />
             </CardFigure>
           </CardBody>
           <CardTitle>{name}</CardTitle>
@@ -63,6 +63,8 @@ const CardFigure = styled.div`
 `
 const CardImg = styled.img`
   display: block;
+  height: auto;
+  width: 100%;
 `
 const CardDescription = styled.div`
   font-size: 16px;
