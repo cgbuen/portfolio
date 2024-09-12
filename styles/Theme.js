@@ -55,6 +55,7 @@ export const theme = createTheme({
         paper: {
           background: '#151515',
           color: 'white',
+          maxWidth: 1128,
           width: '100%',
           '.light-mode &': {
             background: 'white',
