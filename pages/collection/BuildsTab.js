@@ -350,7 +350,7 @@ export default function Builds() {
           <FiltersLabel>Filters: </FiltersLabel>
           <FiltersOnlyContainer>
             {
-              ['Built', 'Unbuilt', 'On the way']
+              ['Built', 'Unbuilt', 'On the way', 'For sale']
                 .filter(x => builds.filter(y => y.build_status === x && y.assembly_variant.includes('A')).length > 0)
                 .map(x => renderFilter({ id: x, name: x }))
             }
