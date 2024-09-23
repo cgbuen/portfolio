@@ -57,7 +57,7 @@ export function createOptimizedSrc(src, options = {}) {
   // but we use "format" here because non of the other options are abbreviated
   if (options.format) options.fmt = options.format
 
-  if (Object.keys(options).length > 0) {
+  if (Object.keys(options).length > 0 && options.width) {
     return `${optimizerUrlBase}/img?${qs.stringify({ ...options, img: src })}`
   } else {
     return src
