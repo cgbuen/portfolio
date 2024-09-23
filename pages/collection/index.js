@@ -76,7 +76,15 @@ function Collection({ router }) {
   return (
     <CollectionContainer>
       <Typography variant="h1">Keyboard Collection</Typography>
-      <p>Below is my personal collection of computer keyboards (primarily in HHKB-inspired layouts) and accompanying keysets and switches. I stream my build process to <LinkBlank to={social.twitch}>Twitch</LinkBlank>.</p>
+      <p>
+        Below is my personal collection of computer keyboards (primarily in
+        HHKB-inspired layouts) and accompanying keysets and switches. I stream
+        my build process to <LinkBlank to={social.twitch}>Twitch</LinkBlank>.
+      </p>
+      <p>
+        For more information on keyboards that are for sale, DM me on Discord
+        ({social.discordP}).
+      </p>
       <p><i>Last updated: {collectionUpdated} GMT</i></p>
       <Tabs
         classes={{
