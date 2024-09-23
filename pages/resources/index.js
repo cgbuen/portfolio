@@ -7,8 +7,6 @@ import LinkBlank from 'components/LinkBlank'
 import Card from 'components/Card'
 import { createOptimizedSrc } from 'helpers/imageService'
 
-const ASSET_DOMAIN = 'https://ph-1080.cgbuen.com'
-
 export default function Resources() {
   const { globalState, globalDispatch } = useContext(Context)
   const { links } = globalState
