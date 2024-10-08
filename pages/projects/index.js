@@ -1,6 +1,5 @@
 import { useContext, useState, useEffect, useCallback } from 'react'
 import Context from 'store/context'
-import styled from 'styled-components'
 import Typography from '@mui/material/Typography'
 import Card from 'components/Card'
 import Dialog from '@mui/material/Dialog'

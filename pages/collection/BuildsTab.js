@@ -47,7 +47,9 @@ export default function Builds() {
   const { builds, buildFiltersActive } = globalState
 
   const openDialog = useCallback((build) => {
-    if (!(build.src.includes('unavailable') || build.otw_link)) {
+    if (build.otw_link) {
+      window.open(build.otw_link, '_blank')
+    } else if (!build.src.includes('unavailable')) {
       let variantVal = 0
       if (build.assembly_variant !== 'A0') {
         const variants = builds.filter(y => y.board_id === build.board_id).sort((x, y) => x.id - y.id)
@@ -78,15 +80,17 @@ export default function Builds() {
     }
   }, [closeDialog])
 
+  const filterActiveBuild = x => x.displayed && !x.src.includes('unavailable') && x.build_status !== 'On the way' && x.build_status !== 'For sale'
+
   const determineNewerBuild = useCallback(() => {
-    const activeBuilds = builds.filter(x => x.displayed && !x.src.includes('unavailable') && x.build_status !== 'On the way')
+    const activeBuilds = builds.filter(filterActiveBuild)
     const currentBuildIndex = activeBuilds.findIndex(x => x.id === openBuild.id)
     const toOpenIndex = (activeBuilds.length + currentBuildIndex - 1) % activeBuilds.length
     return activeBuilds[toOpenIndex]
   }, [builds, openBuild.id])
 
   const determineOlderBuild = useCallback(() => {
-    const activeBuilds = builds.filter(x => x.displayed && !x.src.includes('unavailable') && x.build_status !== 'On the way')
+    const activeBuilds = builds.filter(filterActiveBuild)
     const currentBuildIndex = activeBuilds.findIndex(x => x.id === openBuild.id)
     const toOpenIndex = (activeBuilds.length + currentBuildIndex + 1) % activeBuilds.length
     return activeBuilds[toOpenIndex]
@@ -289,7 +293,7 @@ export default function Builds() {
         .map(x => {
           return x.loaded && (
             <GridSquare
-              className={classnames(!x.displayed && 'hide', !(x.src.includes('unavailable') || x.otw_link) && 'clickable')}
+              className={classnames(!x.displayed && 'hide', !(x.src.includes('unavailable')) && 'clickable')}
               key={x.id}
               name={x.name}
               description={determineDate(x)}
@@ -325,8 +329,8 @@ export default function Builds() {
               </TableHead>
               <TableBody>
                 {builds.map(x => x.loaded && (
-                  <TableRow key={x.id} className={classnames(!x.displayed && 'hide', !(x.src.includes('unavailable') || x.otw_link) && 'clickable')} onClick={() => openDialog(x)}>
-                    <TableCell>{<ListImg src={createOptimizedSrc(x.src, { quality: 90, width: 200 })} alt={x.name} width="100" />}</TableCell>
+                  <TableRow key={x.id} className={classnames(!x.displayed && 'hide', !(x.src.includes('unavailable')) && 'clickable')} onClick={() => openDialog(x)}>
+                    <TableCell>{<ListImg src={createOptimizedSrc(x.src, { quality: 90, width: 200 })} alt={x.name} width="100" height="66.49" />}</TableCell>
                     <TableCell>{x.name}</TableCell>
                     <StyledTableCell>{x.type}</StyledTableCell>
                     <StyledTableCell>{builds.filter(y => y.board_id === x.board_id).length}</StyledTableCell>
@@ -350,7 +354,7 @@ export default function Builds() {
           <FiltersLabel>Filters: </FiltersLabel>
           <FiltersOnlyContainer>
             {
-              ['Built', 'Unbuilt', 'On the way']
+              ['Built', 'Unbuilt', 'On the way', 'For sale']
                 .filter(x => builds.filter(y => y.build_status === x && y.assembly_variant.includes('A')).length > 0)
                 .map(x => renderFilter({ id: x, name: x }))
             }
@@ -379,7 +383,7 @@ export default function Builds() {
         </DialogTitle>
         <DialogContent>
           <DialogImgWrapper>
-            <ModalImg alt={openBuild.name} src={dialogImg && createOptimizedSrc(dialogImg, { quality: 90 })} width="1080" />
+            <ModalImg alt={openBuild.name} src={dialogImg} width="1080" height="720" />
             {
               buildDetailsOpen && (
                 <DescriptionBoxWithBuilds>

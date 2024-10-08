@@ -45,6 +45,7 @@ export const StyledTableHeaderRow = styled(TableRow)`
 
 export const ListImg = styled.img`
   display: block;
+  height: auto;
   width: 100px;
 `
 export const DateDetail = styled.span`

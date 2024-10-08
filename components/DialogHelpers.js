@@ -52,6 +52,7 @@ const DialogImgWrapper = styled.div`
 `
 const ModalImg = styled.img`
   display: block;
+  height: auto;
   width: 100%;
 `
 const DescriptionBox = styled.div`

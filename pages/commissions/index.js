@@ -1,6 +1,5 @@
 import { useContext } from 'react'
 import Context from 'store/context'
-import classnames from 'classnames'
 import styled from 'styled-components'
 import Typography from '@mui/material/Typography'
 import LinkBlank from 'components/LinkBlank'
@@ -20,7 +19,7 @@ export default function Commissions() {
       <Card
         classes={{ cardTitle: 'cardTitle' }}
         name="Shoots"
-        src={createOptimizedSrc("https://ph-1080.cgbuen.com/resources/shoots.jpg", { quality: 80, width: 570 })}
+        src={createOptimizedSrc(`${ASSET_DOMAIN}/resources/shoots.jpg`, { quality: 80, width: 570 })}
         description={(
           <Text>
             Send me a message on Discord ({social.discordP}) or {" "}
@@ -33,7 +32,7 @@ export default function Commissions() {
         <Card
           classes={{ cardTitle: 'cardTitle' }}
           name="Film Development & Scanning"
-          src={createOptimizedSrc("https://ph-1080.cgbuen.com/resources/film.jpg", { quality: 80, width: 570 })}
+          src={createOptimizedSrc(`${ASSET_DOMAIN}/resources/film.jpg`, { quality: 80, width: 570 })}
           description={(
             <Text>
               I&rsquo;ll develop and scan your photo film, ready for print or social media, starting at $3 per roll.{" "}
@@ -45,7 +44,7 @@ export default function Commissions() {
       <Card
         classes={{ cardTitle: 'cardTitle' }}
         name="Keyboard Builds"
-        src={createOptimizedSrc("https://ph-1080.cgbuen.com/resources/keyboards.jpg", { quality: 80, width: 570 })}
+        src={createOptimizedSrc(`${ASSET_DOMAIN}/resources/keyboards.jpg`, { quality: 80, width: 570 })}
         description={(
           <Text>
             Send me a message on Discord ({social.discordP}),{" "}

@@ -17,6 +17,17 @@ function Collection({ router }) {
   const { collectionUpdated, social, switches } = globalState
   const [tab, setTab] = useState(0)
 
+  const forSaleify = x => {
+    if (x.assembly_variant.includes('A') && x.build_status === 'For sale') {
+      x.loaded = true
+      x.displayed = true
+    } else {
+      x.loaded = false
+      x.displayed = false
+    }
+    return x
+  }
+
   const getCollection = useCallback(async (options) => {
     const qsOpts = {}
     let keysetSort = 'purchase_date'
@@ -32,17 +43,23 @@ function Collection({ router }) {
     globalDispatch({ type: 'SET_LOADING', payload: true })
     const collectionResponse = await fetch(`/api/collection?${qs.stringify(qsOpts)}`)
     const collectionResponseJson = await collectionResponse.json()
-    globalDispatch({ type: 'SET_BUILDS', payload: collectionResponseJson.builds })
+    let builds = collectionResponseJson.builds
+    let buildFiltersActive = { Built: true }
+    if (router.query.filter === 'for-sale') {
+      builds = builds.map(forSaleify)
+      buildFiltersActive = { 'For sale': true }
+    }
+    globalDispatch({ type: 'SET_BUILDS', payload: builds })
     globalDispatch({ type: 'SET_KEYSETS', payload: collectionResponseJson.keysets })
     globalDispatch({ type: 'SET_SWITCHES', payload: collectionResponseJson.switches })
     globalDispatch({ type: 'SET_COLLECTIONUPDATED', payload: collectionResponseJson.date })
-    globalDispatch({ type: 'SET_BUILDFILTERSACTIVE', payload: { Built: true } })
+    globalDispatch({ type: 'SET_BUILDFILTERSACTIVE', payload: buildFiltersActive })
     globalDispatch({ type: 'SET_KEYSETSORT', payload: keysetSort })
     globalDispatch({ type: 'SET_KEYSETDESC', payload: false })
     globalDispatch({ type: 'SET_SWITCHESSORT', payload: switchesSort })
     globalDispatch({ type: 'SET_SWITCHESDESC', payload: false })
     globalDispatch({ type: 'SET_LOADING', payload: false })
-  }, [globalDispatch])
+  }, [globalDispatch, router.query.filter])
 
   useEffect(() => {
     router.query.tab && setTab(parseInt(router.query.tab))
@@ -59,7 +76,15 @@ function Collection({ router }) {
   return (
     <CollectionContainer>
       <Typography variant="h1">Keyboard Collection</Typography>
-      <p>Below is my personal collection of computer keyboards (primarily in HHKB-inspired layouts) and accompanying keysets and switches. I stream my build process to <LinkBlank to={social.twitch}>Twitch</LinkBlank>.</p>
+      <p>
+        Below is my personal collection of computer keyboards (primarily in
+        HHKB-inspired layouts) and accompanying keysets and switches. I stream
+        my build process to <LinkBlank to={social.twitch}>Twitch</LinkBlank>.
+      </p>
+      <p>
+        For more information on keyboards that are for sale, DM me on Discord
+        ({social.discordP}).
+      </p>
       <p><i>Last updated: {collectionUpdated} GMT</i></p>
       <Tabs
         classes={{

@@ -24,9 +24,9 @@ export default function Home() {
           <Headline>cgbuen</Headline>
           <Headline className="cheat">cgbuen</Headline>
           <HeroSubTextContainer>
-            <HeroLink onClick={goTo('/projects')}>Software Engineering.</HeroLink>
-            <HeroLink onClick={goTo('/photography')}>Concert Photography.</HeroLink>
-            <HeroLink onClick={goTo('/collection')}>Keyboard Building.</HeroLink>
+            <HeroLink onClick={goTo('/projects')}>Software Engineering</HeroLink>
+            <HeroLink onClick={goTo('/photography')}>Concert Photography</HeroLink>
+            <HeroLink onClick={goTo('/collection')}>Keyboard Building</HeroLink>
           </HeroSubTextContainer>
           <Social className={"heroBox"} />
         </HeroTextContainer>

@@ -23,24 +23,33 @@ export default function About() {
         portfolio of work completed both professionally and for leisure.
       </p>
       <p>
-        I stream a few different types of content on <LinkBlank to={social.twitch}>Twitch</LinkBlank>,
-        including:
+        For any meaningful<a href="#footnote"><sup>†</sup></a> inquiries, you
+        can reach me through Discord ({social.discordP}),{" "}
+        <LinkBlank to={social.instagram}>Instagram</LinkBlank> DM, or{" "}
+        <LinkBlank to={`mailto:${social.email}`}>email</LinkBlank>.
+      </p>
+      <p>
+        I also stream a few different types of content on{" "}
+        <LinkBlank to={social.twitch}>Twitch</LinkBlank>, including:
       </p>
       <ul>
         <li>Custom mechanical keyboard builds</li>
-        <li>Photo film shoots, development, and scans</li>
-        <li>Personal software projects</li>
+        <li>Photo film scanning</li>
         <li>Splatoon gameplay</li>
+        <li>Personal software projects</li>
       </ul>
       <p>
-        (Past broadcasts can be found <LinkBlank to={social.youtubeV}>here</LinkBlank>.)
+        Past broadcasts can be found <LinkBlank to={social.youtubeV}>here</LinkBlank>.
+      </p>
+      <p id="footnote">
+        <small>
+          <sup>†</sup> If you would like to contact me to advertise your SEO or
+          other marketing services, you can go fuck yourself, thanks!
+        </small>
       </p>
       <p>
-        Send me a message for any inquiries. I&rsquo;m best reached by Discord
-        ({social.discordP}), <LinkBlank to={social.instagram}>Instagram</LinkBlank>{" "}
-        DM, or <LinkBlank to={`mailto:${social.email}`}>email</LinkBlank>.
+        <Image alt={"cgbuen"} src={createOptimizedSrc(bioPhoto, { quality: 90 })} />
       </p>
-      <Image alt={"cgbuen"} src={createOptimizedSrc(bioPhoto, { quality: 90 })} />
     </>
   )
 }
